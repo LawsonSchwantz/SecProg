@@ -3,6 +3,13 @@
     if ($_SESSION['is_login'] !== true) {
         header("Location: login.php");
     }
+    if(isset($_SESSION['error_report'])) {
+        echo $_SESSION['error_report'];
+        unset($_SESSION['error_report']);
+    }else if (isset($_SESSION['report_success'])){
+        echo $_SESSION['report_success'];
+        unset($_SESSION['report_success']);
+    }
 ?>
 
 <!DOCTYPE html>
