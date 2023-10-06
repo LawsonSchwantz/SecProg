@@ -10,7 +10,7 @@
 
 <body>
 
-<form action="controllers/AuthController.php" method="POST">
+<form action="controllers/ReportController.php" method="POST">
     <input type="hidden" name="csrf_token" value="<?= $_SESSION['csrf_token']; ?>" />
     <label for="firstname" class="form-label text-light">First Name</label>
     <input id="firstname" name="name" type="text" placeholder="" class="form-control" required>
