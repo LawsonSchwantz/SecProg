@@ -22,7 +22,7 @@
     </fieldset>
     <label for="description" class="form-label text-light">Deskripsi:</label>
     <textarea class="form-control" id="description" name="description"required></textarea>
-    <button type="submit" class="btn btn-warning">Send data</button>
+    <button type="submit" class="btn btn-warning" name="send-data">Send data</button>
 </form>
 
 </body>
