@@ -19,8 +19,8 @@
             if(!in_array($report_type,array_keys($report_typelist))){
                 $_SESSION['error_report'] = "Please enter a valid report type!";
                 $error = true;
-            }else if(strlen($description) >= 1000){
-                $_SESSION['error_report'] = "Too Long, description length must be below 1000 characters!";
+            }else if(strlen($description) >= 150){
+                $_SESSION['error_report'] = "Too Long, description length must be below 150 characters!";
                 $error = true;
             }
             if($error){
