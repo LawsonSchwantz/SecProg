@@ -13,8 +13,8 @@
 <form action="controllers/ReportController.php" method="POST">
     <input type="hidden" name="csrf_token" value="<?= $_SESSION['csrf_token']; ?>" />
     <fieldset class="form-group">
-        <label for="report-type">Tipe laporan:</label>
-        <select id="report-type" name="report-type" class="form-control">
+        <label for="report_type">Tipe laporan:</label>
+        <select id="report_type" name="report_type" class="form-control">
             <option value="1">Kritik dan Saran</option>
             <option value="2">Pengajuan Keluhan</option>
             <option value="3">Lainnya</option>
@@ -22,7 +22,7 @@
     </fieldset>
     <label for="description" class="form-label text-light">Deskripsi:</label>
     <textarea class="form-control" id="description" name="description"required></textarea>
-    <button type="submit" class="btn btn-warning" name="send-data">Send data</button>
+    <button type="submit" class="btn btn-warning" name="send_data">Send data</button>
 </form>
 
 </body>
