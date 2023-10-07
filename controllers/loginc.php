@@ -11,7 +11,7 @@
         $validate=0;
         $error='Password Cannot be Empty!';
     }
-    $con = mysqli_connect('localhost', 'root', '', 'secprog', 3306);
+    $con = mysqli_connect('localhost', 'root', '', 'SecureProg', 3306);
     if ($con->error){
         echo $con->error;
     }
