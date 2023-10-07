@@ -2,7 +2,6 @@
     $username = $_POST["username"];
     $email = $_POST["email"];
     $password = $_POST["password"];
-    $picture = "default.jpg";
     $validate = 1;
 
     $con = mysqli_connect('localhost', 'root', '', 'secprog', 3306);
