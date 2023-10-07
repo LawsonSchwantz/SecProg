@@ -4,7 +4,7 @@
     $password = $_POST["password"];
     $validate = 1;
 
-    $con = mysqli_connect('localhost', 'root', '', 'secprog', 3306);
+    $con = mysqli_connect('localhost', 'root', '', 'SecureProg', 3306);
     if(strlen($username)==0){
         $validate=0;
         $error='Username cannot be empty!';
