@@ -41,7 +41,7 @@ CREATE TABLE `users`(
 
 INSERT INTO `users` (`user_id`,`username`,`email`,`password`,`created_at`) VALUES
 (1,'Lawson Schwantz','laws@gmail.com', '$2y$10$eDygX06lJ5smiSDw84BweeX8EvOH4ZBSTo0IEVg.mWHOc2ho1kVj2','2023-10-05 16:00:50'),
-(2,'Thunder','bukanpetir@gmail.com','$2y$10$ojeMjJLK4nYojk8wpquzhuOtXwaD9B02UpAvhyZnUyFNjKEAmiE7K','2023-10-06 20:43:00');
+(2,'Thunder','bukanpetir@gmail.com','$2y$10$Cr1Sa.wQe.nPEshBdGuKq.x/ryyyE69BEGAF9/njHUrPnTMRv4kuu','2023-10-06 20:43:00');
 
 
 -- --------------------------------------------------------
