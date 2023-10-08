@@ -28,6 +28,11 @@
                 die;
             }
 
+            if ($connection->error){
+                echo $connection->error;
+                die;
+            }
+            
             $user_id = $_SESSION['user_id'];
             $report_type = $report_typelist[$report_type];
             $query = "INSERT INTO report VALUES (NULL, $user_id, '$report_type', '$feedback', NOW());";
