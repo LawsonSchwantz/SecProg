@@ -1,3 +1,8 @@
+<?php
+    session_start();
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -7,7 +12,8 @@
 </head>
 <body>
     <h1>Register</h1>
-    <form action="controller/registerc.php" method="POST">
+    <form action="controllers/registerc.php" method="POST">
+    <input type="hidden" name="csrf_token" value="<?= $_SESSION['csrf_token']; ?>" />
     <div class="form-group">
         <label for="">Email</label>
         <input type="email" class="form-control" name="email">

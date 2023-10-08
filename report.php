@@ -27,6 +27,7 @@
 
 </body>
 
+
 <?php
 if(isset($_SESSION['error_report'])) {
     echo $_SESSION['error_report'];
