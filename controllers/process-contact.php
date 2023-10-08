@@ -1,4 +1,5 @@
 <?php
+//NOTE, not all features worked well rn 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $name = $_POST["name"];
     if (!preg_match("/^[a-zA-Z ]+$/", $name)) {
