@@ -22,7 +22,7 @@
         $validate = 1;
 
         $username = htmlspecialchars($username, ENT_QUOTES, 'UTF-8');
-
+        
         if(strlen($username)==0){
             $validate=0;
             $error='Email cannot be empty!';
@@ -41,9 +41,11 @@
                     if(password_verify($password,$dataresult["password"])){
                         unset($_SESSION['login_attempts']);
                         $_SESSION["is_login"] = true;
+                        $_SESSION["id"] = $dataresult["id"];
+                        $_SESSION["name"] = $dataresult["name"];
                         $_SESSION["username"] = $dataresult["username"];
                         $_SESSION["email"] = $dataresult["email"];
-                        $_SESSION["id"] = $dataresult["id"];
+                        $_SESSION["phone_number"] = $dataresult["phone_number"];
                         $_SESSION["loggedin"] = "Welcome . $username";
                         header("Location: ../index.php");
                         die;
