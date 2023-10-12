@@ -37,9 +37,9 @@
             if($validate==1){
                 $result = $connection->query("SELECT * FROM users WHERE `username`='$username'");
                 if($result->num_rows == 1){
-                    unset($_SESSION['login_attempts']);
                     $dataresult = $result->fetch_assoc();
                     if(password_verify($password,$dataresult["password"])){
+                        unset($_SESSION['login_attempts']);
                         $_SESSION["is_login"] = true;
                         $_SESSION["username"] = $dataresult["username"];
                         $_SESSION["email"] = $dataresult["email"];
