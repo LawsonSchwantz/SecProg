@@ -32,16 +32,37 @@ use SecureProg;
 
 CREATE TABLE `users`(
     `user_id` INT(11) UNSIGNED NOT NULL,
+    `name` text,
     `username` VARCHAR(15),
     `email` text,
+    `phone_number` BIGINT NOT NULL,
     `password` text,
     `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
     PRIMARY KEY (`user_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
-INSERT INTO `users` (`user_id`,`username`,`email`,`password`,`created_at`) VALUES
-(1,'Lawson Schwantz','laws@gmail.com', '$2y$10$eDygX06lJ5smiSDw84BweeX8EvOH4ZBSTo0IEVg.mWHOc2ho1kVj2','2023-10-05 16:00:50'),
-(2,'Thunder','bukanpetir@gmail.com','$2y$10$Cr1Sa.wQe.nPEshBdGuKq.x/ryyyE69BEGAF9/njHUrPnTMRv4kuu','2023-10-06 20:43:00');
+INSERT INTO `users` (`user_id`,`name`,`username`,`email`,`phone_number`,`password`,`created_at`) VALUES
+(1,'Bertrand R.M.','Lawson Schwantz','laws@gmail.com', 6281234567890, '$2y$10$nKjHOYIUs2qsrb1Y5AhLhe5Kg1NO1.yEY.TMSVjNyxIUD/P5.L3Ne','2023-10-05 16:00:50'),
+(2,'Fefe','Thunder','bukanpetir@gmail.com',6289876543210, '$2y$10$73CNI76svhIdYR8Mjjdq7uVpCkPfAVb9W25HqmZBX7rGv6lWzA9sS','2023-10-06 20:43:00');
+
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `aboutus`
+--
+
+CREATE TABLE `aboutus`(
+  `about_id` INT(11) UNSIGNED NOT NULL,
+  `email` text,
+  `message` text,
+  `send_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+   PRIMARY KEY (`about_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+INSERT INTO `aboutus` (`about_id`,`email`,`message`,`send_at`) VALUES
+(1,'vicbe@gmail.com','Ngohee','2023-10-05 16:01:00'),
+(2,'betrand@gmail.com','tes123 wih keren juga ni fitur','2023-10-06 21:00:00');
 
 
 -- --------------------------------------------------------
@@ -76,7 +97,15 @@ ALTER TABLE `reports`
 --
 
 ALTER TABLE `users`
-  MODIFY `user_id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `user_id` INT(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+
+--
+-- AUTO_INCREMENT for table `reports`
+--
+
+ALTER TABLE `aboutus`
+  MODIFY `about_id` INT(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 
 --
@@ -84,7 +113,7 @@ ALTER TABLE `users`
 --
 
 ALTER TABLE `reports`
-  MODIFY `report_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `report_id` INT(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 
 --
