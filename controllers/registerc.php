@@ -17,7 +17,7 @@
         if(strlen($name)==0){
             $validate=0;
             $_SESSION['regist_failed']='Name cannot be empty!';
-        }else if(!preg_match('/^[A-Za-z0-9._%-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,4}$/', $email)){
+        }else if(!filter_var($email, FILTER_VALIDATE_EMAIL)){
             $validate=0;
             $_SESSION['regist_failed'] = 'Email is empty or not valid!';
         }else if(strlen($username)==0){
