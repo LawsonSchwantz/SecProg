@@ -12,7 +12,7 @@
             $report_type = $_POST['report_type'];
             $description = $_POST['description'];
 
-            $description = htmlentities($description);
+            $description = htmlspecialchars($description, ENT_QUOTES, 'UTF-8');
 
             $error = false;
 

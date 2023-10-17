@@ -6,17 +6,22 @@
         return isset($_SESSION['csrf_token']) && hash_equals($_SESSION['csrf_token'], $token);
     }
     if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['csrf_token']) && validateCSRFToken($_POST['csrf_token'])) {
-        $name = htmlspecialchars($_POST['name']);
+        $name = htmlspecialchars($_POST['name'], ENT_QUOTES, 'UTF-8');
         $email = $_POST['email'];
-        $username = htmlspecialchars($_POST['username']);
-        $phone = htmlspecialchars($_POST['phone']);
+        $username = htmlspecialchars($_POST['username'], ENT_QUOTES, 'UTF-8');
+        $phone = htmlspecialchars($_POST['phone'], ENT_QUOTES, 'UTF-8');
         $password = $_POST["password"];
         $confirm_pass = $_POST["confirmpassword"];
         $validate = 1;
         
+        $name_words = str_word_count($name);
+
         if(strlen($name)==0){
             $validate=0;
             $_SESSION['regist_failed']='Name cannot be empty!';
+        }else if($name_words > 20){
+            $validate=0;
+            $_SESSION['regist_failed']='Name is too long!';
         }else if(!filter_var($email, FILTER_VALIDATE_EMAIL)){
             $validate=0;
             $_SESSION['regist_failed'] = 'Email is empty or not valid!';
@@ -26,7 +31,7 @@
         }else if(strlen($username)<5 || strlen($username)>15){
             $validate=0;
             $_SESSION['regist_failed']='Username length must be 5-15 characters!';
-        }else if(is_int(intval($phone)) == 0){
+        }else if(is_numeric($phone) == 0){
             $validate=0;
             $_SESSION['regist_failed']='Phone number must be a number!';
         }else if(strlen($phone) < 10 || strlen($phone) >= 13){
