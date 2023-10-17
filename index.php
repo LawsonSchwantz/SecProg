@@ -1,11 +1,11 @@
-<?php
-    session_start();
+<?php session_start();
+
 ?>
 
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Header with Navigation Menu</title>
+    <title>Home</title>
     <style>
         header {
             background-color: #333;
@@ -83,8 +83,16 @@
         <ul>
             <li><a href="index.php">Home</a></li>
             <li><a href="about-us.php">About</a></li>
-           <!-- <li><a href="#">Services</a></li>-->
             <li><a href="report.php">Report</a></li>
+            <?php
+             if ($_SESSION['is_login'] === true) {
+                  echo "<div id='login'><a href='logout.php'>Logout</a></div>";
+             }else{
+                  echo "<div id='login'><a href='login.php'>Login</a></div>";
+              }
+          
+            ?>
+           <!-- <li><a href="#">Services</a></li>-->
             
 
         </ul>
@@ -203,14 +211,7 @@
 </body>
 </html>
 
-<?php
 
-//    if ($_SESSION['is_login'] !== true) {
-        echo "<header><ul><div id='login'><a href='login.php'>Logout</a></div></ul></header>";
-//    }else{
-//        echo "<div id='login'><a href='login.php'>Login</a></div>";
-//    }
-?>
 
 <!-- 
     - Table masih berupa dummy content. 
