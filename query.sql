@@ -54,15 +54,16 @@ INSERT INTO `users` (`user_id`,`name`,`username`,`email`,`phone_number`,`passwor
 
 CREATE TABLE `aboutus`(
   `about_id` INT(11) UNSIGNED NOT NULL,
+  `name` text,
   `email` text,
   `message` text,
   `send_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
    PRIMARY KEY (`about_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
-INSERT INTO `aboutus` (`about_id`,`email`,`message`,`send_at`) VALUES
-(1,'vicbe@gmail.com','Ngohee','2023-10-05 16:01:00'),
-(2,'betrand@gmail.com','tes123 wih keren juga ni fitur','2023-10-06 21:00:00');
+INSERT INTO `aboutus` (`about_id`,`name`, `email`,`message`,`send_at`) VALUES
+(1,'victor benaya', 'vicbe@gmail.com','Ngohee','2023-10-05 16:01:00'),
+(2,'leo', 'betrand@gmail.com','tes123 wih keren juga ni fitur','2023-10-06 21:00:00');
 
 
 -- --------------------------------------------------------

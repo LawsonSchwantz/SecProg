@@ -1,3 +1,14 @@
+<?php
+    session_start();
+    function generateCSRFToken() {
+        if (!isset($_SESSION['csrf_token'])) {
+            $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
+        }
+        return $_SESSION['csrf_token'];
+    }
+    generateCSRFToken();
+?>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -42,10 +53,11 @@
         </section>
                 
         <section>
-            <h2>Contact Us</h2>
-            <p>If you have any questions or would like to leave us a message, please use the form below:</p>
+            <h2>Any Questions?</h2>
+            <p>Feel free to contact us:</p>
             
-            <form method="post" action="/controllers/process-contact.php">
+            <form method="POST" action="controllers/process-contact.php">
+            <input type="hidden" name="csrf_token" value="<?= $_SESSION['csrf_token']; ?>" />
                 <label for="name">Name:</label>
                 <input type="text" id="name" name="name" required><br><br>
                 
@@ -58,36 +70,7 @@
                 <input type="submit" value="Submit">
             </form>
         </section>
-        <script>
-        function validateForm() {
-            var nameField = document.getElementById("name");
-            var emailField = document.getElementById("email");
-            var messageField = document.getElementById("message");
-
-            if (nameField.value.split(/\s+/).length > 20) {
-                alert("Name should not exceed 20 words.");
-                return false;
-            }
-
-            if (emailField.value.split(/\s+/).length > 100) {
-                alert("Email should not exceed 100 words.");
-                return false;
-            }
-
-            if (messageField.value.split(/\s+/).length > 1000) {
-                alert("Message should not exceed 1000 words.");
-                return false;
-            }
-
-            return true;
-        }
-    </script>
     </main>
-
-
-
-
-
     <footer>
         <p>&copy; <?php echo date("Y"); ?> "Underdev".</p>
     </footer>
