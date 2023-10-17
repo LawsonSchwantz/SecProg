@@ -20,7 +20,7 @@
                 $_SESSION['error_report'] = "Please enter a valid report type!";
                 $error = true;
             }else if(strlen($description) < 20 ||strlen($description) > 150){
-                $_SESSION['error_report'] = "Too Long, description length must be between 20 until 150 characters!";
+                $_SESSION['error_report'] = "Description length must be between 20 until 150 characters!";
                 $error = true;
             }
             if($error){
@@ -34,7 +34,7 @@
             }
             $user_id = $_SESSION['user_id'];
             $report_type = $report_typelist[$report_type];
-            $query = "INSERT INTO reports VALUES (NULL, $user_id, '$report_type', '$feedback', NOW());";
+            $query = "INSERT INTO reports VALUES (NULL, $user_id, '$report_type', '$description', NOW());";
 
             $connection->query($query);
 

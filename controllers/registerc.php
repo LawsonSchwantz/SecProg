@@ -2,39 +2,57 @@
 
     session_start();
     require_once(__DIR__ . '/connection.php');
-
-    function generateCSRFToken() {
-        if (!isset($_SESSION['csrf_token'])) {
-            $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
-        }
-        return $_SESSION['csrf_token'];
-    }
-
     function validateCSRFToken($token) {
         return isset($_SESSION['csrf_token']) && hash_equals($_SESSION['csrf_token'], $token);
     }
-
     if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['csrf_token']) && validateCSRFToken($_POST['csrf_token'])) {
+        $name = htmlspecialchars($_POST['name']);
+        $email = $_POST['email'];
         $username = htmlspecialchars($_POST['username']);
-        $email = filter_var($_POST['email'], FILTER_SANITIZE_EMAIL);
+        $phone = htmlspecialchars($_POST['phone']);
         $password = $_POST["password"];
         $confirm_pass = $_POST["confirmpassword"];
         $validate = 1;
         
-        if(strlen($username)==0){
+        if(strlen($name)==0){
             $validate=0;
-            $error='Username cannot be empty!';
+            $_SESSION['regist_failed']='Name cannot be empty!';
+        }else if(!preg_match('/^[A-Za-z0-9._%-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,4}$/', $email)){
+            $validate=0;
+            $_SESSION['regist_failed'] = 'Email is empty or not valid!';
+        }else if(strlen($username)==0){
+            $validate=0;
+            $_SESSION['regist_failed']='Username cannot be empty!';
         }else if(strlen($username)<5 || strlen($username)>15){
             $validate=0;
-            $error='Username length must be 5-15 characters!';
+            $_SESSION['regist_failed']='Username length must be 5-15 characters!';
+        }else if(is_int(intval($phone)) == 0){
+            $validate=0;
+            $_SESSION['regist_failed']='Phone number must be a number!';
+        }else if(strlen($phone) < 10 || strlen($phone) >= 13){
+            $validate=0;
+            $_SESSION['regist_failed']='Phone number must between 10 to 12 characters!';
         }else if(strlen($password)==0){
             $validate=0;
-            $error='Password cannot be empty!';
+            $_SESSION['regist_failed']='Password cannot be empty!';
         }else if(strlen($password)<8){
             $validate=0;
-            $error='Password length must be atleast 8 characters!';
+            $_SESSION['regist_failed']='Password length must be atleast 8 characters!';
+        }else if (!preg_match('/[A-Z]/', $password)) {
+            $validate=0;
+            $_SESSION['regist_failed'] = "Password must contains at least 1 capital character!";
+        }else if (!preg_match('/[a-z]/', $password)) {
+            $validate=0;
+            $_SESSION['regist_failed'] = "Password must contains at least 1 small character!";
+        }else if (!preg_match('/[0-9]/', $password)) {
+            $validate=0;
+            $_SESSION['regist_failed'] = "Password must contains at least 1 number!";
+        }else if (!preg_match('/[!@#$%^&*]/', $password)) {
+            $validate=0;
+            $_SESSION['regist_failed'] = "Password must contains at least 1 special character!";
         }
         
+        $phone = intval($phone);
         if ($connection->error){
             echo $connection->error;
         }
@@ -42,22 +60,20 @@
             if($validate==1){
                 $result = $connection->query("SELECT * FROM users WHERE `username`='$username'");
                 if($result->num_rows == 1){
-                    $error ='Username has been taken!';
-                    header("Location: ../register.php?error=".$error.'?reg=1');
+                    $_SESSION['regist_failed'] ='Username has been taken!';
+                    header("Location: ../register.php");
                 }else if($confirm_pass != $password){
-                    $error ='Password did not match!';
-                    header("Location: ../register.php?error=".$error.'?reg=1');
-                }
-                else{
+                    $_SESSION['regist_failed'] ='Password did not match!';
+                    header("Location: ../register.php");
+                }else{
                     $password = password_hash($password,PASSWORD_BCRYPT);
-                    $connection->query("INSERT INTO `users` (`id`,`username`, `email`, `password`) VALUES (NULL,'$username', '$email', '$password', NOW());");
-                    $_POST["register"] = "Register Successfull";
-                    header("Location: ../index.php");
+                    $connection->query("INSERT INTO users VALUES (NULL,'$name','$username', '$email', $phone, '$password', NOW());");
+                    $_SESSION['regist_successful'] = '<script>alert("Register Successful! Please Login!");</script>';
+                    header("Location: ../login.php");
                 }
             }else{
-                header("Location: ../register.php?error=".$error.'&reg=1');
+                header("Location: ../register.php");
             }
         }
     }
-    generateCSRFToken();
 ?>

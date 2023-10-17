@@ -2,20 +2,14 @@
     session_start();
     require_once(__DIR__ . '/connection.php');
 
-    $maxLoginAttempts = 3;
+    $maxLoginAttempts = 5;
     if (isset($_SESSION['login_attempts']) && $_SESSION['login_attempts'] >= $maxLoginAttempts) {
-        die("Too many failed login attempts. Please try again later.");
-    }
-    function generateCSRFToken() {
-        if (!isset($_SESSION['csrf_token'])) {
-            $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
-        }
-        return $_SESSION['csrf_token'];
+        $_SESSION['login_failed'] = "Too many failed login attempts. Please try again later.";
     }
     function validateCSRFToken($token) {
         return isset($_SESSION['csrf_token']) && hash_equals($_SESSION['csrf_token'], $token);
     }
-    
+
     if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['csrf_token']) && validateCSRFToken($_POST['csrf_token'])){
         $username = $_POST["username"];
         $password = $_POST["password"];
@@ -25,10 +19,10 @@
         
         if(strlen($username)==0){
             $validate=0;
-            $error='Email cannot be empty!';
+            $_SESSION['login_failed']='Email cannot be empty!';
         }else if(strlen($password)==0){
             $validate=0;
-            $error='Password Cannot be Empty!';
+            $_SESSION['login_failed']='Password Cannot be Empty!';
         }
         if ($connection->error){
             echo $connection->error;
@@ -41,7 +35,7 @@
                     if(password_verify($password,$dataresult["password"])){
                         unset($_SESSION['login_attempts']);
                         $_SESSION["is_login"] = true;
-                        $_SESSION["id"] = $dataresult["id"];
+                        $_SESSION["user_id"] = $dataresult["user_id"];
                         $_SESSION["name"] = $dataresult["name"];
                         $_SESSION["username"] = $dataresult["username"];
                         $_SESSION["email"] = $dataresult["email"];
@@ -55,8 +49,8 @@
                         } else {
                             $_SESSION['login_attempts'] = 1;
                         }
-                        $error ='Invalid Username or Password!';
-                        header("Location: ../login.php?error=".$error);
+                        $_SESSION['login_failed'] ='Invalid Username or Password!';
+                        header("Location: ../login.php");
                     }
                 }else{
                     if (isset($_SESSION['login_attempts'])) {
@@ -64,14 +58,12 @@
                     } else {
                         $_SESSION['login_attempts'] = 1;
                     }
-                    $error ='Invalid Username or Password!';
-                    header("Location: ../login.php?error=".$error);
+                    $_SESSION['login_failed'] ='Invalid Username or Password!';
+                    header("Location: ../login.php");
                 }
             }else{
-                header("Location: ../login.php?error=".$error);
+                header("Location: ../login.php");
             }
         }
     }
-    generateCSRFToken();
-
 ?>
