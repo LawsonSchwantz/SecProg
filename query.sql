@@ -42,6 +42,7 @@ CREATE TABLE `users`(
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 INSERT INTO `users` (`user_id`,`name`,`username`,`email`,`phone_number`,`password`,`created_at`) VALUES
+(0, 'Admin', 'admin', 'admin@gmail.com', 1500505, '$2y$10$TFa9fnwa1AHNS/O/BrQlX.elKR5VTFpIfB9iIRwgxNNeNoX26TcfW', `2023-10-22 22:13:50`),
 (1,'Bertrand R.M.','Lawson Schwantz','laws@gmail.com', 6281234567890, '$2y$10$nKjHOYIUs2qsrb1Y5AhLhe5Kg1NO1.yEY.TMSVjNyxIUD/P5.L3Ne','2023-10-05 16:00:50'),
 (2,'Fefe','Thunder','bukanpetir@gmail.com',6289876543210, '$2y$10$73CNI76svhIdYR8Mjjdq7uVpCkPfAVb9W25HqmZBX7rGv6lWzA9sS','2023-10-06 20:43:00');
 
@@ -85,6 +86,15 @@ CREATE TABLE `reports` (
 INSERT INTO `reports` (`report_id`,`sender_id`,`report_type`,`description`,`send_time`) VALUES
 (1,2,'Kritik dan Saran', 'Ini web apaan dah, isinya putih, gaada warna sama sekali, ga rekomen dah intinya','2023-10-05 16:03:53'),
 (2,1,'Lainnya','Kucingku kemarin nyangkut diatas pohon, bisa bantu turunin ga ya?','2023-10-06 21:53:02');
+
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `items`
+--
+
+
 
 --
 -- Indexes for table `reports`

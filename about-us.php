@@ -87,7 +87,24 @@
 <body>
 
     <header>
+            <?php if($_SESSION['is_admin'] === true){ ?>
             <ul>
+                <li><a href="index.php">Home</a></li>
+                <li><a href="about-us.php">About</a></li>
+                <li><a href="report.php">Report</a></li>
+                <li><a href="admin.php">Admin Panel</a></li>
+                <?php
+                if ($_SESSION['is_login'] === true) {
+                    echo "<div id='login'><a href='controllers/logoutc.php'>Logout</a></div>";
+                }else{
+                    echo "<div id='login'><a href='login.php'>Login</a></div>";
+                }
+            
+                ?>
+            <!-- <li><a href="#">Services</a></li>-->
+            </ul>
+            <?php }else{ ?>
+                <ul>
                 <li><a href="index.php">Home</a></li>
                 <li><a href="about-us.php">About</a></li>
                 <li><a href="report.php">Report</a></li>
@@ -100,9 +117,8 @@
             
                 ?>
             <!-- <li><a href="#">Services</a></li>-->
-                
-
             </ul>
+            <?php } ?>
         </header>
     <h1>About Us</h1>
     <main>
