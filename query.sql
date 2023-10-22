@@ -54,7 +54,7 @@ INSERT INTO `users` (`user_id`,`name`,`username`,`email`,`phone_number`,`passwor
 --
 
 CREATE TABLE `aboutus`(
-  `about_id` INT(11) UNSIGNED NOT NULL,
+  `about_id` INT(11) NOT NULL,
   `name` text,
   `email` text,
   `message` text,
