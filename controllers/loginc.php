@@ -33,7 +33,18 @@
                 $connection->close();
                 if($result->num_rows == 1){
                     $dataresult = $result->fetch_assoc();
-                    if(password_verify($password,$dataresult["password"])){
+                    if($username === 'admin' && password_verify($password,$dataresult["password"])){
+                        unset($_SESSION['login_attempts']);
+                        $_SESSION["is_admin"] = true;
+                        $_SESSION["is_login"] = true;
+                        $_SESSION["user_id"] = $dataresult["user_id"];
+                        $_SESSION["name"] = $dataresult["name"];
+                        $_SESSION["username"] = $dataresult["username"];
+                        $_SESSION["email"] = $dataresult["email"];
+                        $_SESSION["phone_number"] = $dataresult["phone_number"];
+                        $_SESSION["loggedin"] = "Welcome Admin!";
+                        header("Location: ../admin.php");
+                    }else if(password_verify($password,$dataresult["password"])){
                         unset($_SESSION['login_attempts']);
                         $_SESSION["is_login"] = true;
                         $_SESSION["user_id"] = $dataresult["user_id"];
