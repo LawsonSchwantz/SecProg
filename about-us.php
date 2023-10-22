@@ -6,7 +6,21 @@
         }
         return $_SESSION['csrf_token'];
     }
+    function loginstatus(){
+        if(!isset($_SESSION['is_login'])) {
+            $_SESSION['is_login'] = false;
+        }
+        return $_SESSION['is_login'];
+    }
+    function adminstatus(){
+        if(!isset($_SESSION['is_admin'])) {
+            $_SESSION['is_admin'] = false;
+        }
+        return $_SESSION['is_admin'];
+    }
     generateCSRFToken();
+    loginstatus();
+    adminstatus();
 ?>
 
 <!DOCTYPE html>

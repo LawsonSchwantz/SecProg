@@ -13,8 +13,15 @@
         }
         return $_SESSION['is_login'];
     }
+    function adminstatus(){
+        if(!isset($_SESSION['is_admin'])) {
+            $_SESSION['is_admin'] = false;
+        }
+        return $_SESSION['is_admin'];
+    }
     generateCSRFToken();
     loginstatus();
+    adminstatus();
     if(isset($_SESSION['regist_successful'])) {
         echo $_SESSION['regist_successful'];
         unset($_SESSION['regist_successful']);
