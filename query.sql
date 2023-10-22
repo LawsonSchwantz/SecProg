@@ -143,7 +143,7 @@ ALTER TABLE `reports`
 -- AUTO_INCREMENT for table `items`
 --
 
-ALTER TABLE `reports`
+ALTER TABLE `items`
   MODIFY `report_id` INT(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
