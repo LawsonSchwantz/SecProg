@@ -144,7 +144,7 @@ ALTER TABLE `reports`
 --
 
 ALTER TABLE `items`
-  MODIFY `report_id` INT(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `item_id` INT(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- Constraints for table `reports`
