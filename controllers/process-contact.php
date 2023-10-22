@@ -56,6 +56,7 @@
             echo $connection->error;
         }else{
             $connection->query("INSERT INTO aboutus VALUES (NULL,'$name','$email', '$message', NOW());");
+            $connection->close();
         }
         
         header("refresh:3 ; url=../about-us.php");                      //3 seconds delay

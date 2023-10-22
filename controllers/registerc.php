@@ -73,6 +73,7 @@
                 }else{
                     $password = password_hash($password,PASSWORD_BCRYPT);
                     $connection->query("INSERT INTO users VALUES (NULL,'$name','$username', '$email', $phone, '$password', NOW());");
+                    $connection->close();
                     $_SESSION['regist_successful'] = '<script>alert("Register Successful! Please Login!");</script>';
                     header("Location: ../login.php");
                 }

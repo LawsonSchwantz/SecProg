@@ -30,6 +30,7 @@
         else{
             if($validate==1){
                 $result = $connection->query("SELECT * FROM users WHERE `username`='$username'");
+                $connection->close();
                 if($result->num_rows == 1){
                     $dataresult = $result->fetch_assoc();
                     if(password_verify($password,$dataresult["password"])){
