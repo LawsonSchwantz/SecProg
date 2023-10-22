@@ -10,6 +10,10 @@
         return isset($_SESSION['csrf_token']) && hash_equals($_SESSION['csrf_token'], $token);
     }
 
+    if($_SESSION['is_login'] === true || $_SESSION['is_admin'] === true){
+        header("Location: ../index.php");
+    }
+
     if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['csrf_token']) && validateCSRFToken($_POST['csrf_token'])){
         $username = $_POST["username"];
         $password = $_POST["password"];
@@ -43,7 +47,6 @@
                         $_SESSION["phone_number"] = $dataresult["phone_number"];
                         $_SESSION["loggedin"] = "Welcome $username!";
                         header("Location: ../index.php");
-                        die;
                     }else{
                         if (isset($_SESSION['login_attempts'])) {
                             $_SESSION['login_attempts']++;

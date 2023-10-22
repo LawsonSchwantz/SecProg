@@ -1,7 +1,7 @@
 <?php
     session_start();
 
-    if(isset($_SESSION['is_login'])){
+    if($_SESSION['is_login'] === true){
         unset($_SESSION['is_login']);
         unset($_SESSION["user_id"]);
         unset($_SESSION["name"]);
