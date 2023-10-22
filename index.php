@@ -99,7 +99,7 @@
             <li><a href="report.php">Report</a></li>
             <?php
              if ($_SESSION['is_login'] === true) {
-                  echo "<div id='login'><a href='logout.php'>Logout</a></div>";
+                  echo "<div id='login'><a href='controllers/logoutc.php'>Logout</a></div>";
              }else{
                   echo "<div id='login'><a href='login.php'>Login</a></div>";
               }
@@ -110,7 +110,13 @@
 
         </ul>
     </header>
-
+    
+    <?php
+        if(isset($_SESSION["loggedin"])) {
+            echo $_SESSION["loggedin"];
+            unset( $_SESSION["loggedin"]);
+        }
+    ?>
     <main>
     <input type="hidden" name="csrf_token" value="<?= $_SESSION['csrf_token']; ?>" />
         <p>This is the main content of the page.</p>

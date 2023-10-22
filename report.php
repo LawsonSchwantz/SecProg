@@ -72,7 +72,7 @@
             <li><a href="report.php">Report</a></li>
             <?php
              if ($_SESSION['is_login'] === true) {
-                  echo "<div id='login'><a href='logout.php'>Logout</a></div>";
+                  echo "<div id='login'><a href='controllers/logoutc.php'>Logout</a></div>";
              }else{
                   echo "<div id='login'><a href='login.php'>Login</a></div>";
               }
