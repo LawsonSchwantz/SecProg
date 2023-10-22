@@ -41,7 +41,7 @@
                         $_SESSION["username"] = $dataresult["username"];
                         $_SESSION["email"] = $dataresult["email"];
                         $_SESSION["phone_number"] = $dataresult["phone_number"];
-                        $_SESSION["loggedin"] = "Welcome . $username";
+                        $_SESSION["loggedin"] = "Welcome $username!";
                         header("Location: ../index.php");
                         die;
                     }else{
