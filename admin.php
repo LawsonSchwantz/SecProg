@@ -1,7 +1,7 @@
 <?php
-    require_once(__DIR__ . '/controllers/connection.php');
     session_start();
-    if ($_SESSION['is_login'] !== true) {
+    require_once(__DIR__ . '/controllers/connection.php');
+    if ($_SESSION['is_admin'] !== true) {
         header("Location: login.php");
     }
 
@@ -13,16 +13,98 @@
 
     ?>
 
+
+
 <!DOCTYPE html>
 <html lang="en">
     
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<head>
         <title>Admin Page</title>
+    <style>
+        header {
+            background-color: #333;
+            display: block;
+            color: #fff;
+            padding: 1%;
+            position:sticky;
+            
+            top:0px;
+        }
+
+        ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        li {
+            display: inline;
+            margin-right: 3%;
+        }
+
+        a {
+            text-decoration: none;
+            color: #fff;
+        }
+        #login{
+            display: inline;
+            margin-right : 3%;
+        }
+        /* footer{
+            position:sticky;
+            bottom:0px;
+            background-color: white;
+            color: #fff;
+            padding: 0%;
+        } */
+        .footer{
+            color:black;
+            margin-left:3%;
+            margin-right:3%;
+            margin-top:90%;
+        }
+        hr{
+            color:lightgrey;
+            
+        }
+        .custom-table {
+         width: 100%;
+         border-collapse: collapse;
+         
+        }
+        .custom-table td {
+        border: 1px solid #ccc;
+        padding: 10px;
+        text-align: center;
+        margin-right : 3%;
+         margin-left: 3%;
+        }
+        /* .custom-table th {
+        background-color: #333;
+        color: #fff;
+        } */
+        .custom-table tbody tr:nth-child(4){
+        background-color: #fff;
+        margin-right : 3%;
+        margin-left: 3%;
+        }
+        .delete{
+            background-color: black;
+            display: inline;
+        }
+    </style>
     </head>
 
     <body>
+        <header>
+            <ul>
+                <li><a href="index.php">Home</a></li>
+                <li><a href="adminuser.php">Users</a></li>
+                <li><a href="admin.php">Reports</a></li>
+                <div id='login'><a href='controllers/logoutc.php'>Logout</a></div>
+            <!-- <li><a href="#">Services</a></li>-->
+            </ul>
+        </header>
         <h1>Welcome, Administrator!</h1>
         <form action="admin.php" method="post">
             <h3>Add Report</h3>
@@ -54,7 +136,7 @@
             echo "Type: " . $row["report_type"] . "<br>";
             echo "Description: " . $row["description"] . "<br>";
             echo "Time: " . $row["send_time"] . "<br>";
-            echo "<a href='admin.php?delete_report_id=" . $row["report_id"] . "'>Delete</a><br><br>";
+            echo "<div class = 'delete'><a href='admin.php?delete_report_id=" . $row["report_id"] . "'>Delete</a><br><br></div>";
         }
 
         if ($_SERVER["REQUEST_METHOD"] == "POST"){
