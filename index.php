@@ -1,5 +1,10 @@
-<?php session_start();
-
+<?php 
+    session_start();
+    if (!isset($_SESSION['is_login'])){
+        $is_login = false;
+    }else{
+        $is_login = true;
+    }
 ?>
 
 <!DOCTYPE html>
@@ -85,21 +90,21 @@
             <li><a href="about-us.php">About</a></li>
             <li><a href="report.php">Report</a></li>
             <?php
-             if ($_SESSION['is_login'] === true) {
-                  echo "<div id='login'><a href='logout.php'>Logout</a></div>";
-             }else{
+             if ($is_login === true) {
+                  echo "<div id='login'><a href='controllers/logoutc.php'>Logout</a></div>";
+             }else {
                   echo "<div id='login'><a href='login.php'>Login</a></div>";
               }
           
             ?>
-           <!-- <li><a href="#">Services</a></li>-->
+     
             
 
         </ul>
     </header>
 
     <main>
-        <p>This is the main content of the page.</p>
+        <p>//This is the main content of the page.</p>
         <table class="custom-table">
         <!-- PLEASE READ NOTES ON THE BOTTOM OF THIS CODE -->
         <tbody>
@@ -199,7 +204,9 @@
                 <td>Data 3</td>
                 <td>Data 4</td>
             </tr>
-            <!-- Add more rows as needed -->
+            <p> //NOTE : Table masih berupa dummy content. 
+                next progress adalah bikin php untuk auto generate jumlah table sesuai dengan jumlah barang yang dimiliki dalam database<p>
+            
         </tbody>
     </table>
     </main>
