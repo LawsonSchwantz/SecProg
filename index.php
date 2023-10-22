@@ -15,6 +15,10 @@
     }
     generateCSRFToken();
     loginstatus();
+    if(isset($_SESSION['regist_successful'])) {
+        echo $_SESSION['regist_successful'];
+        unset($_SESSION['regist_successful']);
+    }
 ?>
 
 <!DOCTYPE html>

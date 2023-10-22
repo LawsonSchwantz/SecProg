@@ -11,6 +11,9 @@
         echo $_SESSION['regist_successful'];
         unset($_SESSION['regist_successful']);
     }
+    if($_SESSION['is_login'] === true || $_SESSION['is_admin'] === true){
+        header("Location: ../index.php");
+    }
 ?>
 
 <!DOCTYPE html>
