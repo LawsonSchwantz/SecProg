@@ -97,12 +97,6 @@
     <textarea class="form-control" id="description" name="description"required></textarea>
     <button type="submit" class="btn btn-warning" name="send_data">Send data</button>
 </form>
-<footer>
-        <hr></hr>
-        <p>&copy; <?php echo date("Y"); ?> "Underdev".</p>
-    </footer> 
-</body>
-
 
 <?php
 if(isset($_SESSION['error_report'])) {
@@ -113,3 +107,12 @@ if(isset($_SESSION['error_report'])) {
     unset($_SESSION['report_success']);
 }
 ?>
+
+<footer>
+        <hr></hr>
+        <p>&copy; <?php echo date("Y"); ?> "Underdev".</p>
+    </footer> 
+</body>
+
+
+
