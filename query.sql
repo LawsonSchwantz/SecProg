@@ -94,6 +94,18 @@ INSERT INTO `reports` (`report_id`,`sender_id`,`report_type`,`description`,`send
 -- Table structure for table `items`
 --
 
+CREATE TABLE items (
+  item_id INT(11) NOT NULL, 
+  item_name text,
+  item_picture text, 
+  item_desc text,
+  item_stock INT(11) NOT NULL,
+  PRIMARY KEY (item_id)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+INSERT INTO items (item_id,item_name,item_picture,item_desc,item_stock) VALUES
+(1,'Fefe goreng','https://media.discordapp.net/attachments/1156182611383824435/1165674085464948766/FEFE3_01_-_Copy.jpg?ex=6547b597&is=65354097&hm=6818a9608a6a1fc48e15979c417f242f88c8fad5d358dbc3c07990d9ba353098&=&width=888&height=888', 'Fefe',1),
+(2,'Fefe goreng v2','https://media.discordapp.net/attachments/1156182611383824435/1165674085464948766/FEFE3_01_-_Copy.jpg?ex=6547b597&is=65354097&hm=6818a9608a6a1fc48e15979c417f242f88c8fad5d358dbc3c07990d9ba353098&=&width=888&height=888', 'Fefe',1);
 
 
 --
@@ -126,6 +138,13 @@ ALTER TABLE `aboutus`
 ALTER TABLE `reports`
   MODIFY `report_id` INT(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
+
+--
+-- AUTO_INCREMENT for table `items`
+--
+
+ALTER TABLE `reports`
+  MODIFY `report_id` INT(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- Constraints for table `reports`
