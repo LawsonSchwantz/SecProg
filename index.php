@@ -5,6 +5,8 @@
     }else{
         $is_login = true;
     }
+
+    require(__DIR__ . '/controllers/indexConnection.php');
 ?>
 
 <!DOCTYPE html>
@@ -58,11 +60,6 @@
             color:lightgrey;
             
         }
-        .custom-table {
-         width: 100%;
-         border-collapse: collapse;
-         
-        }
         .custom-table td {
         border: 1px solid #ccc;
         padding: 10px;
@@ -70,16 +67,27 @@
         margin-right : 3%;
          margin-left: 3%;
         }
-        /* .custom-table th {
-        background-color: #333;
-        color: #fff;
-        } */
-        .custom-table tbody tr:nth-child(4){
-        background-color: #fff;
-        margin-right : 3%;
-        margin-left: 3%;
+        img.item-image {
+            max-width: 200px; /* Set a maximum width for the images */
+            display: block; /* Make images appear in a block to control alignment */
+            margin: 0 auto; /* Center the images horizontally */
         }
-     
+        .item_name{
+            color: black;
+            font-weight:bold;
+
+        }
+        .item_desc{
+            color:grey;
+            font-weight :150;
+        }
+        
+        .stocks{
+            color:black;
+            font-weight:150;
+
+        }
+        
 
     </style>
 </head>
@@ -104,108 +112,25 @@
     </header>
 
     <main>
-        <p>//This is the main content of the page.</p>
+        
         <table class="custom-table">
-        <!-- PLEASE READ NOTES ON THE BOTTOM OF THIS CODE -->
+        
         <tbody>
-            <tr>
-                <td>Data 1</td>
-                <td>Data 2</td>
-                <td>Data 3</td>
-                <td>Data 4</td>
-            </tr>
-            <tr>
-                <td>Data 1</td>
-                <td>Data 2</td>
-                <td>Data 3</td>
-                <td>Data 4</td>
-            </tr>
-            <tr>
-                <td>Data 1</td>
-                <td>Data 2</td>
-                <td>Data 3</td>
-                <td>Data 4</td>
-            </tr>
-            <tr>
-                <td>Data 1</td>
-                <td>Data 2</td>
-                <td>Data 3</td>
-                <td>Data 4</td>
-            </tr>
-            <tr>
-                <td>Data 1</td>
-                <td>Data 2</td>
-                <td>Data 3</td>
-                <td>Data 4</td>
-            </tr>
-            <tr>
-                <td>Data 1</td>
-                <td>Data 2</td>
-                <td>Data 3</td>
-                <td>Data 4</td>
-            </tr>
-            <tr>
-                <td>Data 1</td>
-                <td>Data 2</td>
-                <td>Data 3</td>
-                <td>Data 4</td>
-            </tr>
-            <tr>
-                <td>Data 1</td>
-                <td>Data 2</td>
-                <td>Data 3</td>
-                <td>Data 4</td>
-            </tr>
-            <tr>
-                <td>Data 1</td>
-                <td>Data 2</td>
-                <td>Data 3</td>
-                <td>Data 4</td>
-            </tr>
-            <tr>
-                <td>Data 1</td>
-                <td>Data 2</td>
-                <td>Data 3</td>
-                <td>Data 4</td>
-            </tr>
-            <tr>
-                <td>Data 1</td>
-                <td>Data 2</td>
-                <td>Data 3</td>
-                <td>Data 4</td>
-            </tr>
-            <tr>
-                <td>Data 1</td>
-                <td>Data 2</td>
-                <td>Data 3</td>
-                <td>Data 4</td>
-            </tr>
-            <tr>
-                <td>Data 1</td>
-                <td>Data 2</td>
-                <td>Data 3</td>
-                <td>Data 4</td>
-            </tr>
-            <tr>
-                <td>Data 1</td>
-                <td>Data 2</td>
-                <td>Data 3</td>
-                <td>Data 4</td>
-            </tr>
-            <tr>
-                <td>Data 1</td>
-                <td>Data 2</td>
-                <td>Data 3</td>
-                <td>Data 4</td>
-            </tr>
-            <tr>
-                <td>Data 1</td>
-                <td>Data 2</td>
-                <td>Data 3</td>
-                <td>Data 4</td>
-            </tr>
-            <p> //NOTE : Table masih berupa dummy content. 
-                next progress adalah bikin php untuk auto generate jumlah table sesuai dengan jumlah barang yang dimiliki dalam database<p>
+        <?php
+        foreach ($data as $row) {
+            echo "<tr>";
+            echo "<td> <img class = 'item-image' src='" . $row['item_picture'] . "' alt='Item Picture'>
+            <p class='item_name'>" . $row['item_name'] . "</p>            
+            <p class='item_desc'>". $row['item_desc'] ."</p>
+            <p class='stocks'>Stock: ". $row['item_stock'] ."</p>
+            </td>";
+
+            // echo "<p>" . $row['item_desc'] . "</p>";
+            // echo "<p>" . $row['item_stock'] . "</td>";
+            echo "</tr>";
+        }
+        ?>
+            
             
         </tbody>
     </table>
@@ -220,7 +145,3 @@
 
 
 
-<!-- 
-    - Table masih berupa dummy content. 
-    - next progress adalah bikin php untuk auto generate jumlah table sesuai dengan jumlah barang yang dimiliki dalam database
-    -->
