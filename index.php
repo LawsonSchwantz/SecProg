@@ -26,6 +26,7 @@
         echo $_SESSION['regist_successful'];
         unset($_SESSION['regist_successful']);
     }
+    require(__DIR__ . '/controllers/indexConnection.php');
 ?>
 
 <!DOCTYPE html>
@@ -137,109 +138,27 @@
             unset( $_SESSION["loggedin"]);
         }
     ?>
-    <main>
-    <input type="hidden" name="csrf_token" value="<?= $_SESSION['csrf_token']; ?>" />
-        <p>This is the main content of the page.</p>
+    
+     <main>
+         
+        <input type="hidden" name="csrf_token" value="<?= $_SESSION['csrf_token']; ?>" />
         <table class="custom-table">
-        <!-- PLEASE READ NOTES ON THE BOTTOM OF THIS CODE -->
+        
         <tbody>
-            <tr>
-                <td>Data 1</td>
-                <td>Data 2</td>
-                <td>Data 3</td>
-                <td>Data 4</td>
-            </tr>
-            <tr>
-                <td>Data 1</td>
-                <td>Data 2</td>
-                <td>Data 3</td>
-                <td>Data 4</td>
-            </tr>
-            <tr>
-                <td>Data 1</td>
-                <td>Data 2</td>
-                <td>Data 3</td>
-                <td>Data 4</td>
-            </tr>
-            <tr>
-                <td>Data 1</td>
-                <td>Data 2</td>
-                <td>Data 3</td>
-                <td>Data 4</td>
-            </tr>
-            <tr>
-                <td>Data 1</td>
-                <td>Data 2</td>
-                <td>Data 3</td>
-                <td>Data 4</td>
-            </tr>
-            <tr>
-                <td>Data 1</td>
-                <td>Data 2</td>
-                <td>Data 3</td>
-                <td>Data 4</td>
-            </tr>
-            <tr>
-                <td>Data 1</td>
-                <td>Data 2</td>
-                <td>Data 3</td>
-                <td>Data 4</td>
-            </tr>
-            <tr>
-                <td>Data 1</td>
-                <td>Data 2</td>
-                <td>Data 3</td>
-                <td>Data 4</td>
-            </tr>
-            <tr>
-                <td>Data 1</td>
-                <td>Data 2</td>
-                <td>Data 3</td>
-                <td>Data 4</td>
-            </tr>
-            <tr>
-                <td>Data 1</td>
-                <td>Data 2</td>
-                <td>Data 3</td>
-                <td>Data 4</td>
-            </tr>
-            <tr>
-                <td>Data 1</td>
-                <td>Data 2</td>
-                <td>Data 3</td>
-                <td>Data 4</td>
-            </tr>
-            <tr>
-                <td>Data 1</td>
-                <td>Data 2</td>
-                <td>Data 3</td>
-                <td>Data 4</td>
-            </tr>
-            <tr>
-                <td>Data 1</td>
-                <td>Data 2</td>
-                <td>Data 3</td>
-                <td>Data 4</td>
-            </tr>
-            <tr>
-                <td>Data 1</td>
-                <td>Data 2</td>
-                <td>Data 3</td>
-                <td>Data 4</td>
-            </tr>
-            <tr>
-                <td>Data 1</td>
-                <td>Data 2</td>
-                <td>Data 3</td>
-                <td>Data 4</td>
-            </tr>
-            <tr>
-                <td>Data 1</td>
-                <td>Data 2</td>
-                <td>Data 3</td>
-                <td>Data 4</td>
-            </tr>
-            <!-- Add more rows as needed -->
+        <?php
+        foreach ($data as $row) {
+            echo "<tr>";
+            echo "<td> <img class = 'item-image' src='" . $row['item_picture'] . "' alt='Item Picture'>
+            <p class='item_name'>" . $row['item_name'] . "</p>            
+            <p class='item_desc'>". $row['item_desc'] ."</p>
+            <p class='stocks'>Stock: ". $row['item_stock'] ."</p>
+            </td>";
+
+            // echo "<p>" . $row['item_desc'] . "</p>";
+            // echo "<p>" . $row['item_stock'] . "</td>";
+            echo "</tr>";
+        }
+        ?>
         </tbody>
     </table>
     </main>
