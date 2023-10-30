@@ -96,6 +96,7 @@
                 <li><a href="index.php">Home</a></li>
                 <li><a href="adminuser.php">Users</a></li>
                 <li><a href="admin.php">Reports</a></li>
+                <div id='login'><a href='settings.php'>Settings</a></div>
                 <div id='login'><a href='controllers/logoutc.php'>Logout</a></div>
             <!-- <li><a href="#">Services</a></li>-->
             </ul>
