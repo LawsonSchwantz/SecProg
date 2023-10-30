@@ -7,7 +7,7 @@
     }
     if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['csrf_token']) && validateCSRFToken($_POST['csrf_token'])) {
         $name = htmlspecialchars($_POST['name'], ENT_QUOTES, 'UTF-8');
-        $email = $_POST['email'];
+        $email = htmlspecialchars($_POST['email'], ENT_QUOTES, 'UTF-8');
         $username = htmlspecialchars($_POST['username'], ENT_QUOTES, 'UTF-8');
         $phone = htmlspecialchars($_POST['phone'], ENT_QUOTES, 'UTF-8');
         $password = $_POST["password"];
