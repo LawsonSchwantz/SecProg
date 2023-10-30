@@ -1,6 +1,6 @@
 <?php
     session_start();
-    if ($_SESSION['is_login'] !== true) {
+    if (!isset($_SESSION['is_login']) || $_SESSION['is_login'] !== true) {
         header("Location: login.php");
     }
 ?>
@@ -80,15 +80,8 @@
                 <li><a href="index.php">Home</a></li>
                 <li><a href="about-us.php">About</a></li>
                 <li><a href="report.php">Report</a></li>
-                <?php
-                if ($_SESSION['is_login'] === true) {
-                    echo "<div id='login'><a href='settings.php'>Settings</a></div>";
-                    echo "<div id='login'><a href='controllers/logoutc.php'>Logout</a></div>";
-                }else{
-                    echo "<div id='login'><a href='login.php'>Login</a></div>";
-                }
-            
-                ?>
+                <li><a href="settings.php">Settings</a></li>
+                <li><a href="controllers/logoutc.php">Logout</a></li>
             <!-- <li><a href="#">Services</a></li>-->
             </ul>
             <?php } ?>

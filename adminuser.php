@@ -1,7 +1,7 @@
 <?php
     session_start();
     require_once(__DIR__ . '/controllers/connection.php');
-    if($_SESSION['is_admin'] !== true){
+    if(!isset($_SESSION['is_admin']) || $_SESSION['is_admin'] !== true){
         header("Location: login.php");
     }
     ?>
