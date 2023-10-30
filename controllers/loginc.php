@@ -52,7 +52,7 @@
                         $_SESSION["username"] = $dataresult["username"];
                         $_SESSION["email"] = $dataresult["email"];
                         $_SESSION["phone_number"] = $dataresult["phone_number"];
-                        $_SESSION["password"] = $password;
+                        $_SESSION["password"] = $dataresult["password"];
                         $_SESSION["loggedin"] = "Welcome $username!";
                         header("Location: ../index.php");
                     }else{
