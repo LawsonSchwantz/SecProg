@@ -42,7 +42,7 @@
                         $_SESSION["username"] = $dataresult["username"];
                         $_SESSION["email"] = $dataresult["email"];
                         $_SESSION["phone_number"] = $dataresult["phone_number"];
-                        $_SESSION["password"] = $password;
+                        $_SESSION["password"] = $dataresult["password"];
                         header("Location: ../admin.php");
                     }else if(password_verify($password,$dataresult["password"])){
                         unset($_SESSION['login_attempts']);
