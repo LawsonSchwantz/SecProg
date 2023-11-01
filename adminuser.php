@@ -110,7 +110,10 @@
                 die($connection->error);
             }
 
-            $result = $connection->query("SELECT * FROM users");
+            $stmt = $connection->prepare("SELECT * FROM users");
+            $stmt->execute();
+            $result = $stmt->get_result();
+            $connection->close();
             while ($row = $result->fetch_assoc()) {
                 echo 'User ID: ' . $row["user_id"] . '<br>';
                 echo "Name: " . $row["username"] . "<br>";

@@ -129,7 +129,10 @@
             die($connection->error);
         }
 
-        $result = $connection->query("SELECT * FROM reports");
+        $stmt = $connection->prepare("SELECT * FROM reports");
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $connection->close();
         while ($row = $result->fetch_assoc()) {
          
             echo 'Report ID: ' . $row["report_id"] . '<br>';
