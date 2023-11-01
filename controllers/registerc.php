@@ -63,7 +63,11 @@
         }
         else {
             if($validate==1){
-                $result = $connection->query("SELECT * FROM users WHERE `username`='$username'");
+                $stmt = $connection->prepare("SELECT * FROM users WHERE username = ?");
+                $stmt->bind_param("s", $username);
+                $stmt->execute();
+                $result = $stmt->get_result();
+                $connection->close();
                 if($result->num_rows == 1){
                     $_SESSION['regist_failed'] ='Username has been taken!';
                     header("Location: ../register.php");

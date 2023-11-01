@@ -4,8 +4,9 @@ require_once(__DIR__ . '/connection.php');
 
 
 // Query the database
-$sql = "SELECT * FROM items";
-$result = $connection->query($sql);
+$stmt = $connection->prepare("SELECT * FROM items");
+$stmt->execute();
+$result = $stmt->get_result();
 
 // Fetch and store data in an array
 $data = array();
