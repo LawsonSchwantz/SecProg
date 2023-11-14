@@ -35,8 +35,9 @@
             $user_id = $_SESSION['user_id'];
             $report_type = $report_typelist[$report_type];
             
-            $connection->query("INSERT INTO reports VALUES (NULL, $user_id, '$report_type', '$description', NOW());");
-
+            $stmt = $connection->prepare("INSERT INTO reports VALUES (NULL,?,?,?,NOW());");
+            $stmt->bind_param("iss", $user_id, $report_type, $description);
+            $stmt->execute();
             $connection->close();
 
             $_SESSION['report_success'] = "Report has been successfully sent!";

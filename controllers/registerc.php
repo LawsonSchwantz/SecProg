@@ -67,7 +67,6 @@
                 $stmt->bind_param("s", $username);
                 $stmt->execute();
                 $result = $stmt->get_result();
-                $connection->close();
                 if($result->num_rows == 1){
                     $_SESSION['regist_failed'] ='Username has been taken!';
                     header("Location: ../register.php");
@@ -76,7 +75,9 @@
                     header("Location: ../register.php");
                 }else{
                     $password = password_hash($password,PASSWORD_BCRYPT);
-                    $connection->query("INSERT INTO users VALUES (NULL,'$name','$username', '$email', $phone, '$password', NOW());");
+                    $stmt = $connection->prepare("INSERT INTO users VALUES (NULL,?,?,?,?,?,NOW());");
+                    $stmt->bind_param("sssis", $name, $username, $email, $phone, $password);
+                    $stmt->execute();
                     $connection->close();
                     $_SESSION['regist_successful'] = '<script>alert("Register Successful! Please Login!");</script>';
                     header("Location: ../login.php");

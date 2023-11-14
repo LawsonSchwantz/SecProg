@@ -55,7 +55,9 @@
         if ($connection->error){
             echo $connection->error;
         }else{
-            $connection->query("INSERT INTO aboutus VALUES (NULL,'$name','$email', '$message', NOW());");
+            $stmt = $connection->prepare("INSERT INTO aboutus VALUES (NULL,?,?,?, NOW());");
+            $stmt->bind_param("sss", $name, $email, $message);
+            $stmt->execute();
             $connection->close();
         }
         
