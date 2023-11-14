@@ -157,7 +157,10 @@ function gantiUsername($user_id, $username, $new_username, $connection) {
     }else if($new_username === $username){
         return "Username can't be the same!";
     }
-    $result = $connection->query("SELECT * FROM users WHERE `username`='$new_username'");
+    $stmt = $connection->prepare("SELECT * FROM users WHERE username = ?");
+    $stmt->bind_param("s", $new_username);
+    $stmt->execute();
+    $result = $stmt->get_result();
     if($result->num_rows == 1){
         return "Username has been taken! ";
     }else if(strlen($new_username)<5 || strlen($new_username)>15){
@@ -214,6 +217,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $pesan = updateEmail($user_id, $email, $new_email, $connection);
     echo $pesan;
 
+    $user_id = $_SESSION['user_id'];
+    $email = $_SESSION['email'];
+    $username = $_SESSION['username'];
+    $password = $_SESSION['password'];
     echo "<br>";
 }
 
