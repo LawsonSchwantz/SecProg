@@ -1,7 +1,7 @@
 <?php
     session_start();
     require_once(__DIR__ . '/controllers/connection.php');
-    if (!isset($_SESSION['is_admin']) || $_SESSION['is_admin'] !== true) {
+    if ($_SESSION['is_admin'] !== true) {
         header("Location: login.php");
     }
 
@@ -101,28 +101,13 @@
                 <li><a href="index.php">Home</a></li>
                 <li><a href="adminuser.php">Users</a></li>
                 <li><a href="admin.php">Reports</a></li>
+                <li><a href="adminitem.php">Items</a></li>
                 <div id='login'><a href='settings.php'>Settings</a></div>
                 <div id='login'><a href='controllers/logoutc.php'>Logout</a></div>
             <!-- <li><a href="#">Services</a></li>-->
             </ul>
         </header>
         <h1>Welcome, Administrator!</h1>
-        <form action="admin.php" method="post">
-            <h3>Add Report</h3>
-            <label for="report_type">Report Type:</label>
-            <select name="report_type" id="report_type">
-                <?php
-                foreach ($report_typelist as $key => $value) {
-                    echo "<option value='$key'>$value</option>";
-                }
-                ?>
-        </select><br><br>
-        
-        <label for="description">Description:</label><br>
-        <textarea name="description" id="description" cols="30" rows="5"></textarea><br>
-        
-        <input type="submit" value="Submit">
-    </form>
     <?php
         echo "<h3>Delete Report</h3>";
         if ($connection->error) {
@@ -132,7 +117,6 @@
         $stmt = $connection->prepare("SELECT * FROM reports");
         $stmt->execute();
         $result = $stmt->get_result();
-        $connection->close();
         while ($row = $result->fetch_assoc()) {
          
             echo 'Report ID: ' . $row["report_id"] . '<br>';
@@ -164,7 +148,7 @@
             $stmt = $connection->prepare($delete_query);
             $stmt->bind_param("i", $report_id);
             $stmt->execute();
-            $stmt->close();
+            $connection->close();
             $_SESSION['report_success'] = "Report has been successfully deleted!";
             header("Location: admin.php");
             exit();

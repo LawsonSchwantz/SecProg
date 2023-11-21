@@ -1,7 +1,7 @@
 <?php
     session_start();
     require_once(__DIR__ . '/controllers/connection.php');
-    if(!isset($_SESSION['is_admin']) || $_SESSION['is_admin'] !== true){
+    if($_SESSION['is_admin'] !== true){
         header("Location: login.php");
     }
     ?>
@@ -11,7 +11,7 @@
 <html lang="en">
     
     <head>
-        <title>Admin User</title>
+        <title>Admin User Page</title>
     <style>
         header {
             background-color: #333;
@@ -96,6 +96,7 @@
                 <li><a href="index.php">Home</a></li>
                 <li><a href="adminuser.php">Users</a></li>
                 <li><a href="admin.php">Reports</a></li>
+                <li><a href="adminitem.php">Items</a></li>
                 <div id='login'><a href='settings.php'>Settings</a></div>
                 <div id='login'><a href='controllers/logoutc.php'>Logout</a></div>
             <!-- <li><a href="#">Services</a></li>-->
@@ -113,7 +114,6 @@
             $stmt = $connection->prepare("SELECT * FROM users");
             $stmt->execute();
             $result = $stmt->get_result();
-            $connection->close();
             while ($row = $result->fetch_assoc()) {
                 echo 'User ID: ' . $row["user_id"] . '<br>';
                 echo "Name: " . $row["username"] . "<br>";
@@ -122,7 +122,7 @@
                     echo "<div class = 'adminn'>Notes: This Account!</div>";
                     continue;
                 }
-                echo "<div class = 'delete'><a href='admin.php?delete_report_id=" . $row["user_id"] . "'>Delete</a><br><br></div>";
+                echo "<div class = 'delete'><a href='adminuser.php?delete_user_id=" . $row["user_id"] . "'>Delete</a><br><br></div>";
             }
 
             if (isset($_GET['delete_user_id']) && $_GET['delete_user_id'] !== 'admin') {
@@ -131,7 +131,7 @@
                 $stmt = $connection->prepare($delete_query);
                 $stmt->bind_param("i", $user_id);
                 $stmt->execute();
-                $stmt->close();
+                $connection->close();
                 $_SESSION['user_success'] = "User has been successfully deleted!";
                 header("Location: adminuser.php");
                 exit();

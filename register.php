@@ -22,27 +22,27 @@
     <input type="hidden" name="csrf_token" value="<?= $_SESSION['csrf_token']; ?>" />
     <div class="form-group">
         <label for="">Name</label>
-        <input type="text" class="form-control" name="name">
+        <input type="text" name="name">
     </div>
     <div class="form-group">
         <label for="">Email</label>
-        <input type="email" class="form-control" name="email">
+        <input type="email" name="email">
     </div>
     <div class="form-group">
         <label for="">Username</label>
-        <input type="text" class="form-control" name="username">
+        <input type="text" name="username">
     </div>
     <div class="form-group">
         <label for="">Phone number (code area + number (ex: 6212345678901))</label>
-        <input type="number" class="form-control" name="phone">
+        <input type="number" name="phone">
     </div>
     <div class="form-group">
         <label for="">Password</label>
-        <input type="password" class="form-control" name="password">
+        <input type="password" name="password">
     </div>
     <div class="form-group">
         <label for="">Confirm Password</label>
-        <input type="password" class="form-control" name="confirmpassword">
+        <input type="password" name="confirmpassword">
     </div>
     <button name="register">Register</button>
     <br>

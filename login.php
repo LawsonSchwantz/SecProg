@@ -35,7 +35,7 @@
         <label for="">Password</label>
         <input type="password" class="form-control" name="password">
     </div>
-    <button class="btn btn-primary" name="login">Login</button>
+    <button name="login">Login</button>
     <br>
     <a href="register.php" class="pull-right">Don't Have Account? Register First</a>
     </form>
