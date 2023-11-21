@@ -81,6 +81,7 @@
                 <li><a href="about-us.php">About</a></li>
                 <li><a href="report.php">Report</a></li>
                 <li><a href="settings.php">Settings</a></li>
+                <li><a href="search.php">Search</a></li>
                 <li><a href="controllers/logoutc.php">Logout</a></li>
             <!-- <li><a href="#">Services</a></li>-->
             </ul>

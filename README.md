@@ -1,3 +1,1 @@
 # SecProg
-
-#Bertrand Gayyyyy

@@ -88,15 +88,13 @@ if (!isset($_SESSION['is_login']) || $_SESSION['is_login'] !== true) {
     </style>
 </head>
 <body>
-<header>
+    <header>
     <?php if($_SESSION['is_admin'] === true){ ?>
             <ul>
                 <li><a href="index.php">Home</a></li>
                 <li><a href="about-us.php">About</a></li>
-                <li><a href="report.php">Report</a></li>
                 <li><a href="admin.php">Admin Panel</a></li>
                 <div id='login'><a href='controllers/logoutc.php'>Logout</a></div>
-            <!-- <li><a href="#">Services</a></li>-->
             </ul>
             <?php }else{ ?>
                 <ul>
@@ -104,8 +102,8 @@ if (!isset($_SESSION['is_login']) || $_SESSION['is_login'] !== true) {
                 <li><a href="about-us.php">About</a></li>
                 <li><a href="report.php">Report</a></li>
                 <li><a href="settings.php">Settings</a></li>
+                <li><a href="search.php">Search</a></li>
                 <li><a href="controllers/logoutc.php">Logout</a></li>
-            <!-- <li><a href="#">Services</a></li>-->
             </ul>
             <?php } ?>
     </header>
