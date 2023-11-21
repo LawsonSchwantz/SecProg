@@ -29,11 +29,11 @@
     <input type="hidden" name="csrf_token" value="<?= $_SESSION['csrf_token']; ?>" />
     <div class="form-group">
         <label for="">Username</label>
-        <input type="text" class="form-control" name="username">
+        <input type="text" name="username">
     </div>
     <div class="form-group">
         <label for="">Password</label>
-        <input type="password" class="form-control" name="password">
+        <input type="password" name="password">
     </div>
     <button name="login">Login</button>
     <br>
