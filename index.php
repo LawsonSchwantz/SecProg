@@ -29,6 +29,13 @@
     require(__DIR__ . '/controllers/indexConnection.php');
 ?>
 
+
+<form action="search.php" method="get">
+    <input type="text" name="search" placeholder="Search for items">
+    <input type="submit" value="Search">
+</form>
+
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -63,6 +70,8 @@
             display: inline;
             margin-right : 3%;
         }
+
+        
         /* footer{
             position:sticky;
             bottom:0px;

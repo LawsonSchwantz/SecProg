@@ -1,6 +1,41 @@
 <?php
 $search_query = isset($_GET['search_query']) ? $_GET['search_query'] : '';
 $search_query = htmlspecialchars($search_query, ENT_QUOTES, 'UTF-8');
+// Connect to your database
+$servername = "127.0.0.1";
+$username = "root";
+$password = "";
+$dbname = "SecureProg";
+
+$conn = new mysqli($servername, $username, $password, $dbname);
+
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+}
+
+$search = $_GET['search'] ?? ''; 
+
+$sql = "SELECT * FROM items WHERE item_name LIKE ? OR item_desc LIKE ?";
+$stmt = $conn->prepare($sql);
+
+$searchTerm = '%' . $search . '%';
+$stmt->bind_param("ss", $searchTerm, $searchTerm);
+
+$stmt->execute();
+
+$result = $stmt->get_result();
+
+if ($result->num_rows > 0) {
+    while($row = $result->fetch_assoc()) {
+        echo "Item ID: " . $row["item_id"]. " - Name: " . $row["item_name"]. " - Description: " . $row["item_desc"]. " - Stock: " . $row["item_stock"] . "<br>";
+    }
+} else {
+    echo "0 results found";
+}
+
+$stmt->close();
+$conn->close();
+
 ?>
 
 <!DOCTYPE html>
