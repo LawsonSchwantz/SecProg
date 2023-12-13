@@ -147,7 +147,7 @@
             }
     }
 
-    if (isset($_GET['delete_item_id'])) {
+    if (isset($_POST['delete_item_id'])) {
         $item_id = $_GET['delete_item_id'];
         $delete_query = "DELETE FROM items WHERE item_id = ?";
         $stmt = $connection->prepare($delete_query);
