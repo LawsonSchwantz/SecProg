@@ -79,10 +79,6 @@
         margin-right : 3%;
         margin-left: 3%;
         }
-        .delete{
-            background-color: black;
-            display: inline;
-        }
     </style>
     </head>
 
@@ -114,11 +110,13 @@
             unset($_SESSION['item_success']);
         }
         
-        $result = $connection->query("SELECT * FROM items");
+        $stmt = $connection->prepare("SELECT * FROM items");
+        $stmt->execute();
+        $result = $stmt->get_result();
+        
         while ($row = $result->fetch_assoc()) {
             if(isset($_GET['add_item_id'])){
-                echo '<form action="controllers/adminitemc.php" method="post">';
-                echo '<input type="hidden" name="item_id" value="' . htmlspecialchars($row["item_id"]) . '">';
+                echo '<form action="controllers/adminc.php" method="post">';
                 echo 'Item Name: <input type="text" name="item_name" value=""> <br>';
                 echo 'Picture (In URL): <input type="text" name="item_picture" value=""> <br>';
                 echo 'Description: <input type="text" name="item_desc" value=""> <br>';
@@ -127,10 +125,9 @@
                 echo '</form><br><br>';
                 break;
             }
-
             else if (isset($_GET['edit_item_id'])) {
-                echo '<form action="controllers/adminitemc.php" method="post">';
-                echo 'Item ID: <input type="hidden" name="item_id" value="' . htmlspecialchars($row["item_id"]) . '"> ' . htmlspecialchars($row["item_id"]) . '<br>';
+                echo '<form action="controllers/adminc.php" method="post">';
+                echo '<input type="hidden" name="item_id" value="' . password_hash(htmlspecialchars($row["item_id"]), PASSWORD_BCRYPT) . '">';
                 echo 'Item Name: <input type="text" name="item_name" value="' . htmlspecialchars($row["item_name"]) . '"> <br>';
                 echo 'Picture : <input type="text" name="item_picture" value="' . htmlspecialchars($row["item_picture"]) . '"> <br>';
                 echo 'Description: <input type="text" name="item_desc" value="' . htmlspecialchars($row["item_desc"]) . '"> <br>';
@@ -138,25 +135,18 @@
                 echo '<button type="submit" name="edit_item">Done Edit</button>';
                 echo '</form><br><br>';
             }else {
-                echo 'Item ID: ' . $row["item_id"] . '<br>';
+                echo '<form action="controllers/adminc.php" method="post">';
+                echo '<input type="hidden" name="item_id" value="' . password_hash(htmlspecialchars($row["item_id"]), PASSWORD_BCRYPT) . '">';
                 echo "Item Name: " . $row["item_name"] . "<br>";
                 echo "Picture : <img class = 'item-image' src='" . $row['item_picture'] . "' alt='Item Picture'><br>";
                 echo "Description: " . $row["item_desc"] . "<br>";
                 echo "Stock: " . $row["item_stock"] . "<br>";
-                echo "<div class = 'delete'><a href='adminitem.php?delete_item_id=" . $row["item_id"] . "'>Delete</a><br><br></div>";
+                echo '<button type="submit" name="delete_item">Delete</button>';
+                echo '</form><br><br>';
             }
     }
 
-    if (isset($_POST['delete_item_id'])) {
-        $item_id = $_GET['delete_item_id'];
-        $delete_query = "DELETE FROM items WHERE item_id = ?";
-        $stmt = $connection->prepare($delete_query);
-        $stmt->bind_param("i", $item_id);
-        $stmt->execute();
-        $connection->close();
-        $_SESSION['item_success'] = "Item has been successfully deleted!";
-        header("Location: adminitem.php");
-    }
+    
     ?>
     </body>
 </html>

@@ -10,7 +10,6 @@
         "2" => "Pengajuan Keluhan",
         "3" => "Lainnya"
     );
-
     ?>
 
 
@@ -118,40 +117,13 @@
         $stmt->execute();
         $result = $stmt->get_result();
         while ($row = $result->fetch_assoc()) {
-         
-            echo 'Report ID: ' . $row["report_id"] . '<br>';
+            echo '<form action="controllers/adminc.php" method="post">';
+            echo '<input type="hidden" name="report_id_delete" value="' . password_hash(htmlspecialchars($row["report_id"]), PASSWORD_BCRYPT) . '">';
             echo "Sender ID: " . $row["sender_id"] . "<br>";
             echo "Type: " . $row["report_type"] . "<br>";
             echo "Description: " . $row["description"] . "<br>";
             echo "Time: " . $row["send_time"] . "<br>";
-            echo "<div class = 'delete'><a href='admin.php?delete_report_id=" . $row["report_id"] . "'>Delete</a><br><br></div>";
+            echo '<button type="submit" name="delete_report">Delete</button>';
+            echo '</form><br><br>';
         }
-
-        if ($_SERVER["REQUEST_METHOD"] == "POST"){
-            $user_id = $_SESSION['user_id'];
-            $type = $report_typelist[$_POST["report_type"]];
-
-            $user_id = mysqli_real_escape_string($connection, $user_id);
-            $report_type = mysqli_real_escape_string($connection, $type);
-            $description = mysqli_real_escape_string($connection, $_POST["description"]);
-
-            $query = "INSERT INTO reports VALUES (NULL, $user_id, '$report_type', '$description', NOW());";
-            $connection->query($query);
-            $_SESSION['report_success'] = "Report has been successfully sent!";
-            header("Location: admin.php");
-            exit();
-        }
-        
-        if (isset($_GET['delete_report_id'])) {
-            $report_id = $_GET['delete_report_id'];
-            $delete_query = "DELETE FROM reports WHERE report_id = ?";
-            $stmt = $connection->prepare($delete_query);
-            $stmt->bind_param("i", $report_id);
-            $stmt->execute();
-            $connection->close();
-            $_SESSION['report_success'] = "Report has been successfully deleted!";
-            header("Location: admin.php");
-            exit();
-        }
-
-        ?>
+    ?>

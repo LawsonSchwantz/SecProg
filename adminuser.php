@@ -80,10 +80,6 @@
         margin-right : 3%;
         margin-left: 3%;
         }
-        .delete{
-            background-color: black;
-            display: inline;
-        }
         .adminn{
             margin-bottom: 10px;
         }
@@ -115,26 +111,16 @@
             $stmt->execute();
             $result = $stmt->get_result();
             while ($row = $result->fetch_assoc()) {
-                echo 'User ID: ' . $row["user_id"] . '<br>';
+                echo '<form action="controllers/adminc.php" method="post">';
+                echo '<input type="hidden" name="user_id_delete" value="' . password_hash(htmlspecialchars($row["user_id"]), PASSWORD_BCRYPT) . '">';
                 echo "Name: " . $row["username"] . "<br>";
                 echo "Email: " . $row["email"] . "<br>";
                 if($row["username"] === 'admin'){
                     echo "<div class = 'adminn'>Notes: This Account!</div>";
                     continue;
                 }
-                echo "<div class = 'delete'><a href='adminuser.php?delete_user_id=" . $row["user_id"] . "'>Delete</a><br><br></div>";
-            }
-
-            if (isset($_GET['delete_user_id']) && $_GET['delete_user_id'] !== 'admin') {
-                $user_id = $_GET['delete_user_id'];
-                $delete_query = "DELETE FROM users WHERE user_id = ?";
-                $stmt = $connection->prepare($delete_query);
-                $stmt->bind_param("i", $user_id);
-                $stmt->execute();
-                $connection->close();
-                $_SESSION['user_success'] = "User has been successfully deleted!";
-                header("Location: adminuser.php");
-                exit();
+                echo '<button type="submit" name="delete_user">Delete</button>';
+                echo '</form><br><br>';
             }
         ?>
 
