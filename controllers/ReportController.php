@@ -1,4 +1,7 @@
 <?php
+    function validateCSRFToken($token) {
+        return isset($_SESSION['csrf_token']) && hash_equals($_SESSION['csrf_token'], $token);
+    }
 
     session_start();
     require_once(__DIR__ . '/connection.php');
@@ -7,7 +10,7 @@
         "2" => "Pengajuan Keluhan",
         "3" => "Lainnya"
     );
-    if($_SERVER['REQUEST_METHOD'] == "POST"){
+    if($_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST['csrf_token']) && validateCSRFToken($_POST['csrf_token'])){
         if(isset($_POST['send_data'])){
             $report_type = $_POST['report_type'];
             $description = $_POST['description'];
