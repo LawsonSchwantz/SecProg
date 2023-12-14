@@ -13,10 +13,10 @@
     if(isset($_POST['csrf_token']) && validateCSRFToken($_POST['csrf_token'])){
 
         if(isset($_POST['add_item'])){
-            $item_name = $_POST['item_name'];
-            $item_picture = $_POST['item_picture'];
-            $item_desc = $_POST['item_desc'];
-            $item_stock = $_POST['item_stock'];
+            $item_name = htmlspecialchars($_POST['item_name']);
+            $item_picture = htmlspecialchars($_POST['item_picture']);
+            $item_desc = htmlspecialchars($_POST['item_desc']);
+            $item_stock = htmlspecialchars($_POST['item_stock']);
 
             if(is_numeric($item_stock) == 0){
                 $_SESSION['item_failed'] = "Stock must be a number!"; 
@@ -35,10 +35,11 @@
         if (isset($_POST['edit_item'])) {
             $item_id = $_POST['item_id'];
 
-            $item_name = $_POST['item_name'];
-            $item_picture = $_POST['item_picture'];
-            $item_desc = $_POST['item_desc'];
-            $item_stock = $_POST['item_stock'];
+            $item_name = htmlspecialchars($_POST['item_name']);
+            $item_picture = htmlspecialchars($_POST['item_picture']);
+            $item_desc = htmlspecialchars($_POST['item_desc']);
+            $item_stock = htmlspecialchars($_POST['item_stock']);
+
             $stmt = $connection->prepare("SELECT * FROM items");
             $stmt->execute();
             $result = $stmt->get_result();
