@@ -117,6 +117,7 @@ if (!isset($_SESSION['is_login']) || $_SESSION['is_login'] !== true) {
     
     <h1>Profile Settings</h1>
     <form method="post" enctype="multipart/form-data">
+        <input type="hidden" name="csrf_token" value="<?= $_SESSION['csrf_token']; ?>" />
         <label for="new_username">New Username:</label>
         <input type="text" name="new_username" id="new_username">
         <br>

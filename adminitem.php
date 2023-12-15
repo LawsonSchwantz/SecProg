@@ -125,6 +125,7 @@
         while ($row = $result->fetch_assoc()) {
             if(isset($_GET['add_item_id'])){
                 echo '<form action="controllers/adminc.php" method="post">';
+                echo '<input type="hidden" name="csrf_token" value="' . $_SESSION["csrf_token"] .'">';
                 echo 'Item Name: <input type="text" name="item_name" value=""> <br>';
                 echo 'Picture (In URL): <input type="text" name="item_picture" value=""> <br>';
                 echo 'Description: <input type="text" name="item_desc" value=""> <br>';
@@ -135,6 +136,7 @@
             }
             else if (isset($_GET['edit_item_id'])) {
                 echo '<form action="controllers/adminc.php" method="post">';
+                echo '<input type="hidden" name="csrf_token" value="' . $_SESSION["csrf_token"] .'">';
                 echo '<input type="hidden" name="item_id" value="' . password_hash(htmlspecialchars($row["item_id"]), PASSWORD_BCRYPT) . '">';
                 echo 'Item Name: <input type="text" name="item_name" value="' . htmlspecialchars($row["item_name"]) . '"> <br>';
                 echo 'Picture : <input type="text" name="item_picture" value="' . htmlspecialchars($row["item_picture"]) . '"> <br>';
@@ -144,6 +146,7 @@
                 echo '</form><br><br>';
             }else {
                 echo '<form action="controllers/adminc.php" method="post">';
+                echo '<input type="hidden" name="csrf_token" value="' . $_SESSION["csrf_token"] .'">';
                 echo '<input type="hidden" name="item_id" value="' . password_hash(htmlspecialchars($row["item_id"]), PASSWORD_BCRYPT) . '">';
                 echo "Item Name: " . $row["item_name"] . "<br>";
                 echo "Picture : <img class = 'item-image' src='" . $row['item_picture'] . "' alt='Item Picture'><br>";

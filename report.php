@@ -96,6 +96,7 @@
     </header>
 
 <form action="controllers/ReportController.php" method="POST">
+    <input type="hidden" name="csrf_token" value="<?= $_SESSION['csrf_token']; ?>" />
     <div class="form-group">
         <label for="report_type">Tipe laporan:</label>
         <select id="report_type" name="report_type" class="form-control">

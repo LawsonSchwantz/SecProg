@@ -26,6 +26,7 @@
 <body>
     <h1>Login</h1>
     <form action="controllers/loginc.php" method="POST">
+    <input type="hidden" name="csrf_token" value="<?= $_SESSION['csrf_token']; ?>" />
     <div class="form-group">
         <label for="">Username</label>
         <input type="text" name="username">

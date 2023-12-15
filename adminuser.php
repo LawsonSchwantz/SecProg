@@ -120,6 +120,7 @@
             $result = $stmt->get_result();
             while ($row = $result->fetch_assoc()) {
                 echo '<form action="controllers/adminc.php" method="post">';
+                echo '<input type="hidden" name="csrf_token" value="' . $_SESSION["csrf_token"] .'">';
                 echo '<input type="hidden" name="user_id_delete" value="' . password_hash(htmlspecialchars($row["user_id"]), PASSWORD_BCRYPT) . '">';
                 echo "Name: " . $row["username"] . "<br>";
                 echo "Email: " . $row["email"] . "<br>";
