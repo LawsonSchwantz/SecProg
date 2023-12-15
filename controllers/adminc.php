@@ -106,13 +106,12 @@
 
         if (isset($_POST['delete_report'])) {
             
+            $report_id = $_POST['report_id_delete'];
             $stmt = $connection->prepare("SELECT * FROM reports");
             $stmt->execute();
             $result = $stmt->get_result();
-            $report_id = $_SESSION['report_id_delete'][$_POST['index']];
             while ($row = $result->fetch_assoc()) {
                 if(password_verify($row['report_id'], $report_id)){
-                    unset($_SESSION['report_id_delete']);
                     $delete_query = "DELETE FROM reports WHERE report_id = ?";
                     $stmt = $connection->prepare($delete_query);
                     $stmt->bind_param("i", $row['report_id']);
@@ -121,7 +120,6 @@
                     header("Location: ../admin.php");
                 }
             }
-            unset($_SESSION['report_id_delete']);
             header("Location: ../admin.php");
         }
     }
