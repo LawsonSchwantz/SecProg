@@ -210,8 +210,11 @@ function gantiPassword($user_id, $password, $new_password, $connection) {
         return "Gagal mengubah password. ";
     }
 }
+function validateCSRFToken($token) {
+    return isset($_SESSION['csrf_token']) && hash_equals($_SESSION['csrf_token'], $token);
+}
 
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['csrf_token']) && validateCSRFToken($_POST['csrf_token'])){
     $pesan = gantiUsername($user_id, $username, htmlspecialchars($_POST['new_username'], ENT_QUOTES, 'UTF-8'), $connection);
     echo $pesan;
 
