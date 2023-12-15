@@ -4,7 +4,7 @@
     function validateCSRFToken($token) {
         return isset($_SESSION['csrf_token']) && hash_equals($_SESSION['csrf_token'], $token);
     }
-    if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['csrf_token']) && validateCSRFToken($_POST['csrf_token'])) {
+    if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_SESSION['csrf_token']) && validateCSRFToken($_SESSION['csrf_token'])) {
         $name = $_POST["name"];
         $name_words = str_word_count($name);
         if ($name_words > 20 or $name_words < 1 ) {
