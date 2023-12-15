@@ -9,7 +9,7 @@
     if($_SESSION['is_admin'] !== true){
         header("Location: login.php");
     }
-    if(isset($_SESSION['csrf_token']) && validateCSRFToken($_SESSION['csrf_token'])){
+    if(isset($_POST['csrf_token']) && validateCSRFToken($_POST['csrf_token'])){
 
         if(isset($_POST['add_item'])){
             $item_name = htmlspecialchars($_POST['item_name']);

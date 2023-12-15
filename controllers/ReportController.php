@@ -10,7 +10,7 @@
         "2" => "Pengajuan Keluhan",
         "3" => "Lainnya"
     );
-    if($_SERVER['REQUEST_METHOD'] == "POST" && isset($_SESSION['csrf_token']) && validateCSRFToken($_SESSION['csrf_token'])){
+    if($_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST['csrf_token']) && validateCSRFToken($_POST['csrf_token'])){
         if(isset($_POST['send_data'])){
             $report_type = $_POST['report_type'];
             $description = $_POST['description'];
