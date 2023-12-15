@@ -20,7 +20,6 @@
 <body>
     <h1>Register</h1>
     <form action="controllers/registerc.php" method="POST">
-    <input type="hidden" name="csrf_token" value="<?= $_SESSION['csrf_token']; ?>" />
     <div class="form-group">
         <label for="">Name</label>
         <input type="text" name="name">
