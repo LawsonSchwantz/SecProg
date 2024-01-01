@@ -9,6 +9,7 @@
     if($_SESSION['is_admin'] !== true){
         header("Location: login.php");
     }
+
     if(isset($_POST['csrf_token']) && validateCSRFToken($_POST['csrf_token'])){
 
         if(isset($_POST['add_item'])){
@@ -32,7 +33,7 @@
         }
 
         if (isset($_POST['edit_item'])) {
-            $item_id = $_POST['item_id'];
+            $item_id = htmlspecialchars($_POST['item_id']);
 
             $item_name = htmlspecialchars($_POST['item_name']);
             $item_picture = htmlspecialchars($_POST['item_picture']);
@@ -122,5 +123,7 @@
             }
             header("Location: ../admin.php");
         }
+    }else{
+        header("Location: ../admin.php");
     }
-header("Location: ../admin.php");
+
