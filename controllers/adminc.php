@@ -85,7 +85,7 @@
         }
 
         if (isset($_POST['delete_user'])) {
-            $user_id = $_POST['user_id_delete'];
+            $user_id = htmlspecialchars($_POST['user_id_delete']);
 
             $stmt = $connection->prepare("SELECT * FROM users");
             $stmt->execute();
