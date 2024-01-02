@@ -1,4 +1,5 @@
 <?php
+    require_once(__DIR__ . '/controllers/sessioncontroll.php');
     function generateCSRFToken() {
         if (!isset($_SESSION['csrf_token'])) {
             $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
@@ -7,6 +8,7 @@
     }
     generateCSRFToken();
     session_start();
+    update_activity($_SESSION['username'], $connection, false);
     if (!isset($_SESSION['is_login']) || $_SESSION['is_login'] !== true) {
         header("Location: login.php");
     }

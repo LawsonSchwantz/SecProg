@@ -57,6 +57,8 @@ if (isset($_POST['login'])) {
         header("Location: login.php");
         exit();
     }
+    
+
 }
 
 ?>
@@ -66,8 +68,11 @@ if (isset($_POST['login'])) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="/js/somedetection.js"></script>
     <title>Login</title>
 </head>
+
+
 <body>
     <h1>Login</h1>
     <form action="controllers/loginc.php" method="POST">
@@ -86,9 +91,12 @@ if (isset($_POST['login'])) {
     </form>
 
     <?php
+
+    //$resultDetection =  $_POST["result"];
     if (isset($_SESSION['login_failed'])) {
         echo $_SESSION['login_failed'];
         unset($_SESSION['login_failed']);
+
     }
     ?>
 

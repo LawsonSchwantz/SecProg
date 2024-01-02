@@ -78,13 +78,20 @@
                     $stmt = $connection->prepare("INSERT INTO users VALUES (NULL,?,?,?,?,?,NOW());");
                     $stmt->bind_param("sssis", $name, $username, $email, $phone, $password);
                     $stmt->execute();
+
+                    //for session controll
+                    $stmt = $connection->prepare("INSERT INTO user_sessions (username) VALUES (?)");
+                    $stmt->bind_param("s", $username);
+                    $stmt->execute();
                     $connection->close();
-                    $_SESSION['regist_successful'] = '<script>alert("Register Successful! Please Login!");</script>';
+                    $_SESSION['regist_successful'] = '<script>alert("Register Successful!");</script>';
                     header("Location: ../login.php");
                 }
             }else{
                 header("Location: ../register.php");
             }
         }
+    }else{
+        header("Location: ../error/error.html");
     }
 ?>

@@ -1,6 +1,10 @@
 <?php
     session_start();
     require_once(__DIR__ . '/connection.php');
+    require_once(__DIR__ . '/sessioncontroll.php');
+    if(isset($_SESSION['username'])){
+        update_activity($_SESSION['username'], $connection, false); 
+    }
     function validateCSRFToken($token) {
         return isset($_SESSION['csrf_token']) && hash_equals($_SESSION['csrf_token'], $token);
     }
@@ -67,7 +71,6 @@
     
         exit();
     }else{
-        echo "nothing to see :) ";
-        echo '<img src="https://s3.getstickerpack.com/storage/uploads/sticker-pack/hyperrabbit-very-good/sticker_22.gif?12372c9e3893053ef92458f6bd17234d" alt="GIF">';
+        header("Location: ../error/error.html");
     }
 ?>

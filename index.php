@@ -1,5 +1,13 @@
 <?php 
+    
     session_start();
+    
+    
+    
+    require_once(__DIR__ . '/controllers/sessioncontroll.php');
+    if(isset($_SESSION['username'])){
+        update_activity($_SESSION['username'], $connection, false); 
+    }
     function generateCSRFToken() {
         if (!isset($_SESSION['csrf_token'])) {
             $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
@@ -171,7 +179,3 @@
 
 
 
-<!-- 
-    - Table masih berupa dummy content. 
-    - next progress adalah bikin php untuk auto generate jumlah table sesuai dengan jumlah barang yang dimiliki dalam database
-    -->

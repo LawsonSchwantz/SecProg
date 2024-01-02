@@ -1,9 +1,13 @@
 <?php
+    require_once(__DIR__ . '/sessioncontroll.php');
     function validateCSRFToken($token) {
         return isset($_SESSION['csrf_token']) && hash_equals($_SESSION['csrf_token'], $token);
     }
-
+    
     session_start();
+    if(isset($_SESSION['username'])){
+        update_activity($_SESSION['username'], $connection, false); 
+    }
     require_once(__DIR__ . '/connection.php');
     $report_typelist = array(
         "1" => "Kritik dan Saran",
@@ -47,5 +51,7 @@
 
             header("Location: ../report.php");
         }
+    }else{
+        header("Location: ../error/error.html");
     }
     

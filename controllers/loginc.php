@@ -1,8 +1,9 @@
 <?php
     session_start();
     require_once(__DIR__ . '/connection.php');
-
+    require_once(__DIR__ . '/sessioncontroll.php');
     $maxLoginAttempts = 5;
+    //echo "<h1> $userAgent <h1>";
     if (isset($_SESSION['login_attempts']) && $_SESSION['login_attempts'] >= $maxLoginAttempts) {
         $_SESSION['login_failed'] = "Too many failed login attempts. Please try again later.";
     }
@@ -15,6 +16,8 @@
         $password = $_POST["password"];
         $validate = 1;
 
+       
+        
         $username = htmlspecialchars($username, ENT_QUOTES, 'UTF-8');
         
         if(strlen($username)==0){
@@ -33,9 +36,10 @@
                 $stmt->bind_param("s", $username);
                 $stmt->execute();
                 $result = $stmt->get_result();
-                $connection->close();
+               
                 if($result->num_rows == 1){
                     $dataresult = $result->fetch_assoc();
+                    //admin, success
                     if($username === 'admin' && password_verify($password,$dataresult["password"])){
                         unset($_SESSION['login_attempts']);
                         $_SESSION["is_admin"] = true;
@@ -46,9 +50,25 @@
                         $_SESSION["email"] = $dataresult["email"];
                         $_SESSION["phone_number"] = $dataresult["phone_number"];
                         $_SESSION["password"] = $dataresult["password"];
-                        header("Location: ../admin.php");
+                        
+                        //for session controll
+                       if(CheckDoubleDevice($username, $connection) == false ){
+                        $login_status = true;
+                        $sessionId = session_id();
+                        $stmt = $connection->prepare("UPDATE user_sessions SET session_id = ?, activity_timestamp = NOW() ,login_status = ?, user_agent = ? WHERE username= ?" );
+                        $stmt->bind_param("ssss", $sessionId , $login_status, $_SERVER['HTTP_USER_AGENT'], $username);
+                        $stmt->execute();
+                        $connection->close();
+                        header("Location: ../index.php");
+                    }else{
+                        AutoLogout(true);
+                    }
+                        
                     }else if(password_verify($password,$dataresult["password"])){
+                        //user, success
+                        
                         unset($_SESSION['login_attempts']);
+                        session_regenerate_id(true);
                         $_SESSION["is_login"] = true;
                         $_SESSION["user_id"] = $dataresult["user_id"];
                         $_SESSION["name"] = $dataresult["name"];
@@ -57,8 +77,25 @@
                         $_SESSION["phone_number"] = $dataresult["phone_number"];
                         $_SESSION["password"] = $dataresult["password"];
                         $_SESSION["loggedin"] = "Welcome $username!";
-                        header("Location: ../index.php");
+                        
+                        //for session controll
+                        if(CheckDoubleDevice($username, $connection) == false ){
+                            $login_status = true;
+                            $sessionId = session_id();
+                            $stmt = $connection->prepare("UPDATE user_sessions SET session_id = ?, activity_timestamp = NOW() ,login_status = ?, user_agent = ? WHERE username= ?" );
+                            $stmt->bind_param("ssss", $sessionId , $login_status, $_SERVER['HTTP_USER_AGENT'], $username);
+                            $stmt->execute();
+                            $connection->close();
+                            header("Location: ../index.php");
+                        }else{
+                            AutoLogout(true);
+                         }
+
+                        
+                        
+                        
                     }else{
+                        //unsuccess
                         if (isset($_SESSION['login_attempts'])) {
                             $_SESSION['login_attempts']++;
                         } else {
@@ -79,6 +116,6 @@
             }else{
                 header("Location: ../login.php");
             }
-        }
+        }   
     }
 ?>

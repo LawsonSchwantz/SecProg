@@ -1,15 +1,15 @@
 <?php
-
+    require_once(__DIR__ . '/sessioncontroll.php');
     function validateCSRFToken($token) {
         return isset($_SESSION['csrf_token']) && hash_equals($_SESSION['csrf_token'], $token);
     }
-        
+    
     session_start();
+    update_activity($_SESSION['username'], $connection, true);
     require_once(__DIR__ . '/connection.php');
     if($_SESSION['is_admin'] !== true){
         header("Location: login.php");
     }
-
     if(isset($_POST['csrf_token']) && validateCSRFToken($_POST['csrf_token'])){
 
         if(isset($_POST['add_item'])){
@@ -33,7 +33,7 @@
         }
 
         if (isset($_POST['edit_item'])) {
-            $item_id = htmlspecialchars($_POST['item_id']);
+            $item_id = $_POST['item_id'];
 
             $item_name = htmlspecialchars($_POST['item_name']);
             $item_picture = htmlspecialchars($_POST['item_picture']);
@@ -85,7 +85,7 @@
         }
 
         if (isset($_POST['delete_user'])) {
-            $user_id = htmlspecialchars($_POST['user_id_delete']);
+            $user_id = $_POST['user_id_delete'];
 
             $stmt = $connection->prepare("SELECT * FROM users");
             $stmt->execute();
@@ -123,7 +123,6 @@
             }
             header("Location: ../admin.php");
         }
-    }else{
-        header("Location: ../admin.php");
     }
-
+header("Location: ../admin.php");
+?>
