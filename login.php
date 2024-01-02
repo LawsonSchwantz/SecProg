@@ -68,7 +68,6 @@ if (isset($_POST['login'])) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="/js/somedetection.js"></script>
     <title>Login</title>
 </head>
 
