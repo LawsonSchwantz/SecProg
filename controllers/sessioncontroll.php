@@ -45,7 +45,7 @@ function session_check($username, $connection, $iscontrollers) {
             }else if($differenceInMinutes > 5 && $loginStatus === 1){
                 AutoLogout($iscontrollers);       
 
-            }else if(strcmp($userAgent, $storedUserAgent) != 0 && $loginStatus === 1){ // add && ip di session vs ip di db
+            }else if(strcmp($userAgent, $storedUserAgent) != 0 && $loginStatus === 1){
                 AutoLogout($iscontrollers);
                 
             }
