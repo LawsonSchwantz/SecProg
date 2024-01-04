@@ -3,7 +3,7 @@
     require_once(__DIR__ . '/connection.php');
     require_once(__DIR__ . '/sessioncontroll.php');
     $maxLoginAttempts = 5;
-    //echo "<h1> $userAgent <h1>";
+    
     if (isset($_SESSION['login_attempts']) && $_SESSION['login_attempts'] >= $maxLoginAttempts) {
         $_SESSION['login_failed'] = "Too many failed login attempts. Please try again later.";
     }
@@ -39,7 +39,7 @@
                
                 if($result->num_rows == 1){
                     $dataresult = $result->fetch_assoc();
-                    //admin, success
+                    
                     if($username === 'admin' && password_verify($password,$dataresult["password"])){
                         unset($_SESSION['login_attempts']);
                         $_SESSION["is_admin"] = true;
@@ -51,7 +51,7 @@
                         $_SESSION["phone_number"] = $dataresult["phone_number"];
                         $_SESSION["password"] = $dataresult["password"];
                         
-                        //for session controll
+                       
                        if(CheckDoubleDevice($username, $connection) == false ){
                         $login_status = true;
                         $sessionId = session_id();
@@ -65,7 +65,7 @@
                     }
                         
                     }else if(password_verify($password,$dataresult["password"])){
-                        //user, success
+                        
                         
                         unset($_SESSION['login_attempts']);
                         session_regenerate_id(true);
@@ -78,7 +78,7 @@
                         $_SESSION["password"] = $dataresult["password"];
                         $_SESSION["loggedin"] = "Welcome $username!";
                         
-                        //for session controll
+                        
                         if(CheckDoubleDevice($username, $connection) == false ){
                             $login_status = true;
                             $sessionId = session_id();
