@@ -16,11 +16,9 @@ function CheckDoubleDevice($username, $connection){
 function AutoLogout($iscontrollers){
     if($iscontrollers === true){
         echo '<script>alert("Please re-login!");window.location.href="logoutc.php";</script>'; 
-        //header("Location: logoutc.php");
         return;
     }else{
         echo '<script>alert("Please re-login!");window.location.href="controllers/logoutc.php";</script>'; 
-        //header("Location: controllers/logoutc.php");
         return;
     }
 }
@@ -32,9 +30,6 @@ function session_check($username, $connection, $iscontrollers) {
     $stmt->execute();
     $result = $stmt->get_result();
     $userAgent = $_SERVER['HTTP_USER_AGENT'];
-    //debugging usage:
-    //echo "<h1> $userAgent <h1>";
-
     if ($result->num_rows > 0) {
         while ($row = $result->fetch_assoc()) {
             $dbSessionId = $row['session_id'];
@@ -43,9 +38,6 @@ function session_check($username, $connection, $iscontrollers) {
             $storedUserAgent = $row['user_agent'];
             $storedTimestamp = strtotime($lastOnline);
             $differenceInMinutes = round((time() - $storedTimestamp) / 60);
-
-            //debugging usage:
-            //echo "<h1> $differenceInMinutes <h1>" ;
 
             if ($currentSessionId === $dbSessionId && $loginStatus === 0) {
                 AutoLogout($iscontrollers);
@@ -70,8 +62,6 @@ function update_activity($username, $connection, $iscontrollers){
     $stmt = $connection->prepare("UPDATE user_sessions SET activity_timestamp = NOW() ,login_status = ?  WHERE username= ?" );
     $stmt->bind_param("ss", $login_status,  $username);
     $stmt->execute();    
-
-    //    $connection->close();
 }
 ?>
 
